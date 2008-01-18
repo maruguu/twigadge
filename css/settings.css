@@ -1,0 +1,13 @@
+﻿* {
+  margin: 0;
+  padding 0;
+}
+
+body {
+  width: 200px;
+  height: 130px;
+}
+
+.input-box {
+  width: 196px;
+}
