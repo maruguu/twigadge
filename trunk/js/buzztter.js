@@ -4,11 +4,6 @@
 // requirement : Ajax.RssReader class
 //               (http://r.schuil.googlepages.com/ajax.rssreader)
 
-LOCAL.get_feed_start    = "FEED : start";
-LOCAL.get_feed_progress = "FEED : reading ..."
-LOCAL.get_feed_success  = "FEED : finished";
-LOCAL.get_feed_error    = "FEED : error";
-
 var buzztter = true;
 var buzztter_rss = "http://buzztter.com/ja/rss";
 
