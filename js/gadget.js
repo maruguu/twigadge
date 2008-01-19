@@ -139,7 +139,7 @@ function getFriendsTimeline() {
   
   var xhr;
   xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true, username, passwords);
+  xhr.open('POST', url, true, username, passwords);
   xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
