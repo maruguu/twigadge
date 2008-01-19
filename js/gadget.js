@@ -1,8 +1,9 @@
 // twigadge -- twitter on sidebar
 var username;
 var passwords;
-var json;       // JSON format
 var interval;
+var post;
+var json;       // JSON format
 var refreshTimer;
 
 // Scroll to top
@@ -75,6 +76,7 @@ function render() {
   }
   
   var httpURL = /(s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;
+  // '
   var bg_color;
   var r_text;
   if(json) {
@@ -135,11 +137,14 @@ function reply(name) {
 
 function getFriendsTimeline() {
   var url = 'http://twitter.com/statuses/friends_timeline.json';
-  //var url = 'http://twitter.com/statuses/public_timeline.json'; // public timeline
-  
-  var xhr;
-  xhr = new XMLHttpRequest();
-  xhr.open('POST', url, true, username, passwords);
+  var mtd;
+  if(post) {
+    mtd = 'POST';
+  } else {
+    mtd = 'GET';
+  }
+  var xhr = new XMLHttpRequest();
+  xhr.open(mtd, url, true, username, passwords);
   xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -220,7 +225,7 @@ function pageLoad() {
   if (username != '') {
     window.setTimeout(function() { refreshTimeline(); }, 3000);
   } else {
-    window.setTimeout(function() {$('output').innerHTML = "set username"; }, 3000);
+    window.setTimeout(function() {$('output').innerHTML = LOCAL.set_username; }, 3000);
   }
   refreshFeed();
 }
@@ -232,7 +237,7 @@ function refreshTimeline() {
   if (username != '') {
     getFriendsTimeline();
   } else {
-    $('output').innerHTML = "set username";
+    $('output').innerHTML = LOCAL.set_username;
   }
   refreshTimer = setTimeout(refreshTimeline, 1000 * 60 * interval);
 }
@@ -250,6 +255,7 @@ function settingsRead() {
   if (!interval || interval <= 0) {
     interval = 5;
   }
+  post = (System.Gadget.Settings.read('post') == 'true') ? true : false;
 }
 
 window.attachEvent('onload', pageLoad);
