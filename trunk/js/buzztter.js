@@ -6,10 +6,10 @@
 
 var buzztter = true;
 var buzztter_rss = "http://buzztter.com/ja/rss";
+var feed_interval = 10;
 
 var BuzzDict = [];
 var refreshFeedTimer;
-var feed_interval = 1;
 
 // TXT -> DOM(http://d.hatena.ne.jp/bellbind/20051003/p5)
 function parseXml(xmlText) {
@@ -52,7 +52,7 @@ function getFeed() {
       
       $('output').innerHTML = LOCAL.get_feed_success;
     } else if(xhr && xhr.readyState == 4) {
-      $('output').innerHTML = "FEED : " + xhr.status + ':' + xhr.statusText;
+      $('output').innerHTML = "Buzztter : " + xhr.status + ':' + xhr.statusText;
     } else if(xhr && istimeout == 'timeout') {
       $('output').innerHTML = LOCAL.get_feed_error;
     } else if(xhr && xhr.readyState == 3) {

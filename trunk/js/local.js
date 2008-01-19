@@ -3,21 +3,22 @@
 //
 // Main gadget strings
 //
-LOCAL.send_finish = "SEND : finished";
-LOCAL.send_timeout = "SEND : timeout";
-LOCAL.send_message = "SEND : sending message ...";
-LOCAL.send_cation = "Please WAIT until this window is closed automatically";
-LOCAL.send_cation2 = "Please WAIT ...";
+LOCAL.set_username = "ユーザ情報未設定";
+LOCAL.send_finish = "メッセージ送信完了";
+LOCAL.send_timeout = "送信タイムアウト";
+LOCAL.send_message = "メッセージ送信中";
+LOCAL.send_cation = "このウィンドウが自動的に消えるまでお待ちください";
+LOCAL.send_cation2 = "処理中";
 
-LOCAL.recv_finish = "RECV : finished";
-LOCAL.recv_timeout = "RECV : timeout";
-LOCAL.recv_message = "RECV : Now loading ... ";
-LOCAL.recv_message2 = "RECV : loading ... ";
+LOCAL.recv_finish = "更新完了";
+LOCAL.recv_timeout = "更新タイムアウト";
+LOCAL.recv_message = "更新中";
+LOCAL.recv_message2 = "更新中 ...";
 
-LOCAL.get_feed_start    = "FEED : start";
-LOCAL.get_feed_progress = "FEED : reading ..."
-LOCAL.get_feed_success  = "FEED : finished";
-LOCAL.get_feed_error    = "FEED : error";
+LOCAL.get_feed_start    = "Buzztter更新開始";
+LOCAL.get_feed_progress = "Buzztter更新中"
+LOCAL.get_feed_success  = "Buzztter更新完了";
+LOCAL.get_feed_error    = "Buzztter更新エラー";
 
 
 //
