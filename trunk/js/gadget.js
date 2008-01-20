@@ -109,16 +109,6 @@ function render() {
       r_text += '</td></tr></table>';
       r_text += '</p>';
     }
-    /*
-    // buzzwords
-    r_text += '<p class="comment">';
-    r_text += '<table cellspacing="0" cellpadding="0"><tr><td width="' + td_width + '" ' + bg_color + '>';
-    for(var i = 1; i < BuzzDict.length; i++) {
-      r_text += BuzzDict[i] + ' ';
-    }
-    r_text += '</td></tr></table>';
-    r_text += '</p>';
-    */
     $('render').innerHTML = r_text;
   }
   scroller(1);

@@ -11,3 +11,17 @@ body {
 .input-box {
   width: 186px;
 }
+
+.tab {
+  color : blue;
+  cursor : pointer;
+  margin : 1px 1px 1px 1px ;
+  padding : 1px 1px 1px 1px ;
+  word-break : break-all;
+}
+
+.current_tab {
+  margin : 1px 1px 1px 1px ;
+  padding : 1px 1px 1px 1px ;
+  word-break : break-all;  
+}
