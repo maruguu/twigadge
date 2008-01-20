@@ -9,6 +9,7 @@ var temp_interval;
 var temp_post;
 var temp_width;
 var temp_height;
+var temp_rollback;
 
 var previous_page;
 
@@ -34,7 +35,7 @@ function settingsInit() {
     temp_height = System.Gadget.Settings.read('undocked_height');
     if(temp_height == '') temp_height = '350';
   }
-  
+  temp_rollback = (System.Gadget.Settings.read('rollback') == 'true');
   
   previous_page = 0;
   showtab(0);
@@ -50,6 +51,7 @@ function saveSettings(page) {
   } else if(page == 1) {
     temp_width = $('width').value;
     temp_height = $('height').value;
+    temp_rollback = $('rollback').checked;
   }
 }
 
@@ -70,16 +72,17 @@ function settingsClosing(event) {
       if(isNaN(i) || i < 20) i = 130;
       System.Gadget.Settings.write('docked_width', i);
       i = parseInt(temp_height);
-      if(isNaN(i) || i < 40) i = 200;
+      if(isNaN(i) || i < 60) i = 200;
       System.Gadget.Settings.write('docked_height', i);
     } else {
       i = parseInt(temp_width);
       if(isNaN(i) || i < 20) i = 280;
       System.Gadget.Settings.write('undocked_width', i);
       i = parseInt(temp_height);
-      if(isNaN(i) || i < 40) i = 350;
+      if(isNaN(i) || i < 60) i = 350;
       System.Gadget.Settings.write('undocked_height', i);
     }
+    System.Gadget.Settings.write('rollback', (temp_rollback)?'true' : 'false');
   }
 }
 
@@ -114,6 +117,7 @@ function showtab(page) {
   } else if(page == 1) {
     $('width').value = temp_width;
     $('height').value = temp_height;
+    $('rollback').checked = temp_rollback;
   }
   
   

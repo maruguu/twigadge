@@ -8,6 +8,7 @@ var interval;
 var post;
 var width;
 var height;
+var rollback;
 var json;       // JSON format
 var refreshTimer;
 
@@ -116,7 +117,7 @@ function render() {
     }
     $('render').innerHTML = r_text;
   }
-  scroller(1);
+  if(rollback) scroller(1);
 }
 
 function reply(name) {
@@ -173,12 +174,12 @@ function dockStateChanged() {
     width = System.Gadget.Settings.read('docked_width');
     if (!width || width < 20) width = 130;
     height = System.Gadget.Settings.read('docked_height');
-    if (!height || height < 40) height = 200;
+    if (!height || height < 60) height = 200;
   } else {
     width = System.Gadget.Settings.read('undocked_width');
     if (!width || width < 20) width = 280;
     height = System.Gadget.Settings.read('undocked_height');
-    if (!height || height < 40) height = 350;
+    if (!height || height < 60) height = 350;
   }
   render();
 }
@@ -261,13 +262,14 @@ function settingsRead() {
     width = System.Gadget.Settings.read('docked_width');
     if (!width || width < 20) width = 130;
     height = System.Gadget.Settings.read('docked_height');
-    if (!height || height < 40) height = 200;
+    if (!height || height < 60) height = 200;
   } else {
     width = System.Gadget.Settings.read('undocked_width');
     if (!width || width < 20) width = 280;
     height = System.Gadget.Settings.read('undocked_height');
-    if (!height || height < 40) height = 350;
+    if (!height || height < 60) height = 350;
   }
+  rollback = (System.Gadget.Settings.read('rollback') == 'true') ? true : false;
 }
 
 window.attachEvent('onload', pageLoad);
