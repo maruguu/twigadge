@@ -1,8 +1,13 @@
-// twigadge -- twitter on sidebar
+/*
+ * gadget.js
+ *   main module - twigadge
+ */
 var username;
 var passwords;
 var interval;
 var post;
+var width;
+var height;
 var json;       // JSON format
 var refreshTimer;
 
@@ -62,16 +67,16 @@ function render() {
   
   $('gadget').innerHTML = '<div class="render" id="render"></div>';
   if (System.Gadget.docked) {
-    document.body.style.width = '130px';
-    document.body.style.height = '200px';
-    $('render').style.height = '180px';
-    td_width = '108';
+    document.body.style.width = width + 'px';
+    document.body.style.height = height + 'px';
+    $('render').style.height = (height - 20) + 'px';
+    td_width = (width - 22);
     img_size = '20';
   } else {
-    document.body.style.width = '280px';
-    document.body.style.height = '350px';
-    $('render').style.height = '330px';
-    td_width = '258';
+    document.body.style.width = width + 'px';
+    document.body.style.height = height + 'px';
+    $('render').style.height = (height - 20) + 'px';
+    td_width = (width - 22);
     img_size = '40';
   }
   
@@ -164,6 +169,17 @@ function settingsClosed(p_event) {
 }
 
 function dockStateChanged() {
+  if(System.Gadget.docked) {
+    width = System.Gadget.Settings.read('docked_width');
+    if (!width || width < 20) width = 130;
+    height = System.Gadget.Settings.read('docked_height');
+    if (!height || height < 40) height = 200;
+  } else {
+    width = System.Gadget.Settings.read('undocked_width');
+    if (!width || width < 20) width = 280;
+    height = System.Gadget.Settings.read('undocked_height');
+    if (!height || height < 40) height = 350;
+  }
   render();
 }
 
@@ -234,18 +250,24 @@ function refreshTimeline() {
 
 function settingsRead() {
   username = System.Gadget.Settings.read('username');
-  if (!username) {
-    username = '';
-  }
+  if (!username) username = '';
   passwords = System.Gadget.Settings.read('passwords');
-  if (!passwords) {
-    passwords = '';
-  }
+  if (!passwords) passwords = '';
   interval = System.Gadget.Settings.read('interval');
-  if (!interval || interval <= 0) {
-    interval = 5;
-  }
+  if (!interval || interval <= 0) interval = 5;
   post = (System.Gadget.Settings.read('post') == 'true') ? true : false;
+  
+  if(System.Gadget.docked) {
+    width = System.Gadget.Settings.read('docked_width');
+    if (!width || width < 20) width = 130;
+    height = System.Gadget.Settings.read('docked_height');
+    if (!height || height < 40) height = 200;
+  } else {
+    width = System.Gadget.Settings.read('undocked_width');
+    if (!width || width < 20) width = 280;
+    height = System.Gadget.Settings.read('undocked_height');
+    if (!height || height < 40) height = 350;
+  }
 }
 
 window.attachEvent('onload', pageLoad);

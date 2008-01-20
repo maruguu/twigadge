@@ -1,6 +1,5 @@
 /*
  *  settings.js
- *  Copyright(c) 2007-2008 maruguu
  */
 
 //  temporary value for setting
@@ -8,31 +7,34 @@ var temp_user;
 var temp_pass;
 var temp_interval;
 var temp_post;
+var temp_width;
+var temp_height;
 
 var previous_page;
-
-// UI Data
-var pages = new Array();
-pages[0] = '<p>ユーザ名:<br><input type="text" id="user" value="" class="input-box" /></p><p>パスワード:<br><input type="password" id="pass" value="" class="input-box" /></p><p>更新間隔(分):<br><input type="text" id="interval" value="" class="input-box" /></p><tr><td style="width:30%" style="padding-top:3px"><input type="checkbox" name="post" value="" />ステータスの更新にPOSTを使う</td></tr>';
-
-pages[1] = '仮置き1';
-pages[2] = '仮置き2';
-
-var menu = new Array();
-menu[0] = '<a class="tab" onClick="showtab(0)">通信</a>';
-menu[1] = '<a class="tab" onClick="showtab(1)">表示</a>';
-menu[2] = '<a class="tab" onClick="showtab(2)">その他</a>';
 
 // Initialize
 function settingsInit() {
   window.detachEvent('onload', settingsInit);
   System.Gadget.onSettingsClosing = settingsClosing;
   
+  // Read from file
   temp_user = System.Gadget.Settings.read('username');
   temp_pass = System.Gadget.Settings.read('passwords');
   temp_interval = System.Gadget.Settings.read('interval');
   if(temp_interval == '') temp_interval = '5';
   temp_post = (System.Gadget.Settings.read('post') == 'true');
+  if(System.Gadget.docked) {
+    temp_width = System.Gadget.Settings.read('docked_width');
+    if(temp_width == '') temp_width = '130';
+    temp_height = System.Gadget.Settings.read('docked_height');
+    if(temp_height == '') temp_height = '200';
+  } else {
+    temp_width = System.Gadget.Settings.read('undocked_width');
+    if(temp_width == '') temp_width = '280';
+    temp_height = System.Gadget.Settings.read('undocked_height');
+    if(temp_height == '') temp_height = '350';
+  }
+  
   
   previous_page = 0;
   showtab(0);
@@ -45,6 +47,9 @@ function saveSettings(page) {
     temp_pass = $('pass').value;
     temp_interval = $('interval').value;
     temp_post = $('post').checked;
+  } else if(page == 1) {
+    temp_width = $('width').value;
+    temp_height = $('height').value;
   }
 }
 
@@ -53,15 +58,28 @@ function settingsClosing(event) {
   if(event.closeAction == event.Action.commit) {
     saveSettings(previous_page);
     
-    var i = parseInt(temp_interval);
-    if(isNaN(i) || i <= 0) {
-      i = 5;
-    }
-    var p = (temp_post) ? 'true' : 'false'; 
+    var i;
     System.Gadget.Settings.write('username', temp_user);
     System.Gadget.Settings.write('passwords', temp_pass);
+    i = parseInt(temp_interval);
+    if(isNaN(i) || i <= 0) i = 5;
     System.Gadget.Settings.write('interval', i);
-    System.Gadget.Settings.write('post', p);
+    System.Gadget.Settings.write('post', (temp_post) ? 'true' : 'false');
+    if(System.Gadget.docked) {
+      i = parseInt(temp_width);
+      if(isNaN(i) || i < 20) i = 130;
+      System.Gadget.Settings.write('docked_width', i);
+      i = parseInt(temp_height);
+      if(isNaN(i) || i < 40) i = 200;
+      System.Gadget.Settings.write('docked_height', i);
+    } else {
+      i = parseInt(temp_width);
+      if(isNaN(i) || i < 20) i = 280;
+      System.Gadget.Settings.write('undocked_width', i);
+      i = parseInt(temp_height);
+      if(isNaN(i) || i < 40) i = 350;
+      System.Gadget.Settings.write('undocked_height', i);
+    }
   }
 }
 
@@ -93,6 +111,9 @@ function showtab(page) {
     $('pass').value = temp_pass;
     $('interval').value = temp_interval;
     $('post').checked = temp_post;
+  } else if(page == 1) {
+    $('width').value = temp_width;
+    $('height').value = temp_height;
   }
   
   
