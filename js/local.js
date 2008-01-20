@@ -1,8 +1,10 @@
-﻿var LOCAL = {};
+﻿/*
+ * local.js
+ *   l10n for gadget.html
+ */
+var LOCAL = {};
 
-//
 // Main gadget strings
-//
 LOCAL.set_username = "ユーザ情報未設定";
 LOCAL.send_finish = "メッセージ送信完了";
 LOCAL.send_timeout = "送信タイムアウト";
@@ -19,9 +21,4 @@ LOCAL.get_feed_start    = "Buzztter更新開始";
 LOCAL.get_feed_progress = "Buzztter更新中"
 LOCAL.get_feed_success  = "Buzztter更新完了";
 LOCAL.get_feed_error    = "Buzztter更新エラー";
-
-
-//
-// Used in Options
-//
 

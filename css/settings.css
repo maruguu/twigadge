@@ -5,7 +5,7 @@
 
 body {
   width: 200px;
-  height: 300px;
+  height: 180px;
 }
 
 .input-box {
@@ -15,6 +15,7 @@ body {
 .tab {
   color : blue;
   cursor : pointer;
+  text-decoration : underline;
   margin : 1px 1px 1px 1px ;
   padding : 1px 1px 1px 1px ;
   word-break : break-all;
