@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body
+{
+  width: 130px;
+  height: 200px;
+  color: #333333;
+  background: #9ae4e8 url(http://assets0.twitter.com/images/bg.gif) fixed no-repeat top left;
+  font-family: Verdana;
+  font-size: 7pt;
+}
+
+.twitter_link {
+  color: #000000;
+  text-decoration: none;
+}
+  
+.header {
+  height: 10px;
+}
+
+.footer {
+  height: 10px;
+  background: #8ad4d8;
+}
+
+.reload {
+  cursor: pointer;
+  background: #7ac4c8;
+}
+
+.update {
+  cursor: pointer;
+  background: #8ad4d8;
+}
+
+.comment {
+  border : 1px solid #7ac4c8;
+  margin : 1px 1px 1px 1px ;
+  padding : 1px 1px 1px 1px ;
+  word-break : break-all;
+}
+
+.scr_name {
+  cursor: pointer;
+}
+
+.gadget {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-face-color: #9ae4e8;
+  scrollbar-track-color: #aaf4f8;
+  scrollbar-arrow-color: #ffffff;
+  scrollbar-highlight-color: #baffff;
+  scrollbar-shadow-color: #7ac4c8;
+  scrollbar-3dlight-color: #aaf4f8;
+  scrollbar-darkshadow-color: #8ad4d8;
+}
+
+a.buzzword {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
