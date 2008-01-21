@@ -103,8 +103,9 @@ function render() {
       r_text += '<p class="comment">';
       r_text += '<table cellspacing="0" cellpadding="0"><tr><td width="' + td_width + '" ' + bg_color + '>';
       r_text += '<div class="scr_name" onclick="reply(\'' + json[i].user.screen_name +'\')" >';
-      r_text += '<img src=' + json[i].user.profile_image_url;
-      r_text += ' alt="" width="' + img_size+ '" height="' + img_size + '" align="left" />';
+      r_text += '<table class="user_image" background="' + json[i].user.profile_image_url + '" ';
+      r_text += 'width="' + img_size + '" height="40" align="left">';
+      r_text += '<tr><td></td></tr></table>';      
       r_text += '</div>';
       r_text += '<b><div class="scr_name" id="scr_name' + i + '" onclick="reply(\'' + json[i].user.screen_name;
       r_text += '\')" onmouseover="changeBgColor(\'scr_name' + i + '\')" ';
