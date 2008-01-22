@@ -1,17 +1,11 @@
 // buzztter.js
 // Get buzztter rss feed ...
-// inline link + popup ???
-// requirement : Ajax.RssReader class
-//               (http://r.schuil.googlepages.com/ajax.rssreader)
-
-var buzztter = true;
-var buzztter_rss = "http://buzztter.com/ja/rss";
-var feed_interval = 10;
-
-var BuzzDict = [];
-var refreshFeedTimer;
-
 // TXT -> DOM(http://d.hatena.ne.jp/bellbind/20051003/p5)
+var Buzztter = {
+  BuzzDict: [],
+  refreshTimer: null
+};
+
 function parseXml(xmlText) {
   if (window.ActiveXObject) {
     var domDoc = new ActiveXObject('Microsoft.XMLDOM');
@@ -33,14 +27,14 @@ function sortFunc(a, b) {
 }
 
 function getFeed() {
-  if(buzztter) {
-    var xhr;
-    xhr = new XMLHttpRequest();
-    xhr.open('GET', buzztter_rss, true);
-    xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
-    xhr.setRequestHeader('Content-Type', 'application/xml');
+  var rss = "http://buzztter.com/ja/rss";
+  var xhr;
+  xhr = new XMLHttpRequest();
+  xhr.open('GET', rss, true);
+  xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
+  xhr.setRequestHeader('Content-Type', 'application/xml');
 
-    xhr.onreadystatechange = function(istimeout) {
+  xhr.onreadystatechange = function(istimeout) {
     if(xhr && xhr.readyState == 4 && xhr.status == 200) {
       var xml = parseXml(xhr.responseText);
       var itemList =  xml.getElementsByTagName("item");
@@ -52,25 +46,24 @@ function getFeed() {
       
       $('output').innerHTML = LOCAL.get_feed_success;
     } else if(xhr && xhr.readyState == 4) {
-      $('output').innerHTML = "Buzztter : " + xhr.status + ':' + xhr.statusText;
+      $('output').innerHTML = "Buzztter:" + xhr.status + ':' + xhr.statusText;
     } else if(xhr && istimeout == 'timeout') {
       $('output').innerHTML = LOCAL.get_feed_error;
     } else if(xhr && xhr.readyState == 3) {
       $('output').innerHTML = LOCAL.get_feed_progress;
     } else {
     }
-    };
-    xhr.send('');
-    $('output').innerHTML = LOCAL.get_feed_start;
-  }
+  };
+  xhr.send('');
+  $('output').innerHTML = LOCAL.get_feed_start;
 }
 
-function refreshFeed() {
-  if(refreshFeedTimer) {
-    window.clearTimeout(refreshFeedTimer);
+function refreshFeed(us) {
+  if(Buzztter.refreshTimer) {
+    window.clearTimeout(Buzztter.refreshTimer);
   }
   getFeed();
-  refreshFeedTimer = setTimeout(refreshFeed, 1000 * 60 * feed_interval);
+  Buzztter.refreshTimer = setTimeout(function() { refreshFeed(us); }, 1000 * 60 * us.buzztter.interval);
 }
 
 function replaceBuzzword(txt, word) {

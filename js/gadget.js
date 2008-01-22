@@ -2,38 +2,37 @@
  * gadget.js
  *   main module - twigadge
  */
-var username;
-var passwords;
-var interval;
-var post;
-var width;
-var height;
-var rollback;
+var Gadget = {}; // Namespace
+var us;         // User Settings
 var json;       // JSON format
 var refreshTimer;
 
-// Scroll to top
-var scr_pos_y = 0;
-var scr_count; 
-function scroller(c){
-  if(c == 1){
-    scr_count = 0;
-    scr_pos_y = $('gadget').scrollTop;
+// ---- Scroll -----------------
+var Scroll = {
+  y: 0, count: 0
+};
+
+Scroll.scroller = function(cnt){
+  var MAX = 30.0;
+  if(cnt == 1){
+    Scroll.count = 0;
+    Scroll.y = $('gadget').scrollTop;
   }
   
-  if(++scr_count <= 30){
-    var ny = scr_pos_y - scr_pos_y * (scr_count / 30.0);
-    $('gadget').scrollTop = ny;
-    window.setTimeout('scroller()', 10);
+  if(++Scroll.count <= MAX){
+    var y = Scroll.y - Scroll.y * (Scroll.count / MAX);
+    $('gadget').scrollTop = y;
+    window.setTimeout('Scroll.scroller()', 10);
   }
 }
+// ------------------------------------
 
-function updateStatus() {
+Gadget.updateStatus = function() {
   var url = 'http://twitter.com/statuses/update.json';
   var uptext = System.Gadget.Flyout.document.getElementById('update-text');
   var upbutton = System.Gadget.Flyout.document.getElementById('update-button');
   xhr = new XMLHttpRequest();
-  xhr.open('POST', url, true, username, passwords);
+  xhr.open('POST', url, true, us.username, us.password);
   xhr.setRequestHeader('If-Modified-Since', 'Sat, 1 Jan 2000 00:00:00 GMT');
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.onreadystatechange = function(istimeout) {
@@ -54,71 +53,13 @@ function updateStatus() {
   uptext.value = LOCAL.send_cation;
 }
 
+//---- inline functions ---------------
 function changeBgColor(id) {
   $(id).style.background = '#cec87a';
 }
 
 function backBgColor(id) {
    $(id).style.background = 'transparent';
-}
-
-function render() {
-  var td_width;
-  var img_size;
-  
-  $('gadget').innerHTML = '<div class="render" id="render"></div>';
-  if (System.Gadget.docked) {
-    document.body.style.width = width + 'px';
-    document.body.style.height = height + 'px';
-    $('render').style.height = (height - 20) + 'px';
-    td_width = (width - 22);
-    img_size = '20';
-  } else {
-    document.body.style.width = width + 'px';
-    document.body.style.height = height + 'px';
-    $('render').style.height = (height - 20) + 'px';
-    td_width = (width - 22);
-    img_size = '40';
-  }
-  
-  var httpURL = /(s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;
-  // '
-  var bg_color;
-  var r_text;
-  if(json) {
-    r_text = '';
-    for(var i = 0; i < json.length; i++) {
-      if(username != '') {
-        if(json[i].text.indexOf('@' + username) >= 0) {
-          bg_color = 'bgcolor="#7acec8" ';
-        } else {
-          bg_color = '';
-        }
-      }
-      // URL replace
-      
-      var body = json[i].text.replace(httpURL, '<a href="$1">$1</a>');
-      body = BuzzHighlight(body);
-      
-      r_text += '<p class="comment">';
-      r_text += '<table cellspacing="0" cellpadding="0"><tr><td width="' + td_width + '" ' + bg_color + '>';
-      r_text += '<div class="scr_name" onclick="reply(\'' + json[i].user.screen_name +'\')" >';
-      r_text += '<table class="user_image" background="' + json[i].user.profile_image_url + '" ';
-      r_text += 'width="' + img_size + '" height="40" align="left">';
-      r_text += '<tr><td></td></tr></table>';      
-      r_text += '</div>';
-      r_text += '<b><div class="scr_name" id="scr_name' + i + '" onclick="reply(\'' + json[i].user.screen_name;
-      r_text += '\')" onmouseover="changeBgColor(\'scr_name' + i + '\')" ';
-      r_text += 'onmouseout="backBgColor(\'scr_name' + i + '\')" >';
-      r_text += json[i].user.screen_name + '</div></b>';
-      //r_text += json[i].text.replace(httpURL, '<a href="$1">$1</a>');
-      r_text += body;
-      r_text += '</td></tr></table>';
-      r_text += '</p>';
-    }
-    $('render').innerHTML = r_text;
-  }
-  if(rollback) scroller(1);
 }
 
 function reply(name) {
@@ -128,20 +69,65 @@ function reply(name) {
     uptext.focus();
   } else {
     System.Gadget.Settings.write('replyTo', name);
-    setFlyout();
+    Gadget.setFlyout();
   }
 }
+//-------------------------------------
 
-function getFriendsTimeline() {
-  var url = 'http://twitter.com/statuses/friends_timeline.json';
-  var mtd;
-  if(post) {
-    mtd = 'POST';
-  } else {
-    mtd = 'GET';
+Gadget.render = function() {
+  var httpURL = /(s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g; // '
+  var txt = '';
+  var w = (us.width - 22); // <td width=
+  var iSize = (System.Gadget.docked) ? '20' : '40'; // Image size
+  var bgc;
+  
+  document.body.style.width = us.width + 'px';
+  document.body.style.height = us.height + 'px';
+  
+  $('gadget').innerHTML = '<div class="render" id="render"></div>';
+  $('render').style.height = (us.height - 20) + 'px';
+  if(json) {
+    for(var i = 0; i < json.length; i++) {
+      if(us.username != '') {
+        if(json[i].text.indexOf('@' + us.username) >= 0) {
+          bgc = 'bgcolor="#7acec8" ';
+        } else {
+          bgc = '';
+        }
+      }
+      // URL replace
+      var body = json[i].text.replace(httpURL, '<a href="$1">$1</a>');
+      body = BuzzHighlight(body);
+      
+      txt += '<p class="comment">';
+      txt += '<table cellspacing="0" cellpadding="0">';
+      txt += '<tr><td width="' + w + '" ' + bgc + '>';
+      txt += '<div class="scr_name"';
+      txt += ' onclick="reply(\'' + json[i].user.screen_name +'\')" >';
+      txt += '<table class="user_image"';
+      txt += ' background="' + json[i].user.profile_image_url + '"';
+      txt += ' width="' + iSize + '" height="40" align="left">';
+      txt += '<tr><td></td></tr></table>';
+      txt += '</div>';
+      txt += '<b><div class="scr_name" id="scr_name' + i + '"';
+      txt += ' onclick="reply(\'' + json[i].user.screen_name + '\')"';
+      txt += ' onmouseover="changeBgColor(\'scr_name' + i + '\')"';
+      txt += ' onmouseout="backBgColor(\'scr_name' + i + '\')" >';
+      txt += json[i].user.screen_name + '</div></b>';
+      txt += body;
+      txt += '</td></tr></table>';
+      txt += '</p>';
+    }
+    $('render').innerHTML = txt;
   }
+  if(us.scroller) Scroll.scroller(1);
+}
+
+Gadget.getFriendsTimeline = function() {
+  var url = 'http://twitter.com/statuses/friends_timeline.json';
+  var get_method = (us.post) ? 'POST' : 'GET';
   var xhr = new XMLHttpRequest();
-  xhr.open(mtd, url, true, username, passwords);
+  xhr.open(get_method, url, true, us.username, us.password);
   xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -149,7 +135,7 @@ function getFriendsTimeline() {
     if(xhr && xhr.readyState == 4 && xhr.status == 200) {
       json = eval('{table: ' + xhr.responseText + '}');
       $('output').innerHTML = LOCAL.recv_finish;
-      render();
+      Gadget.render();
     } else if(xhr && xhr.readyState == 4) {
       $('output').innerHTML = xhr.status + ':' + xhr.statusText;
     } else if(xhr && istimeout == 'timeout') {
@@ -163,29 +149,29 @@ function getFriendsTimeline() {
   $('output').innerHTML = LOCAL.recv_message;
 }
 
-function settingsClosed(p_event) {
+Gadget.settingsClosed = function(p_event) {
   if (p_event.closeAction == p_event.Action.commit) {
-    settingsRead();
-    refreshTimeline();
+    us.read();
+    Gadget.refreshTimeline();
   }
 }
 
-function dockStateChanged() {
+Gadget.dockStateChanged = function() {
   if(System.Gadget.docked) {
-    width = System.Gadget.Settings.read('docked_width');
-    if (!width || width < 20) width = 130;
-    height = System.Gadget.Settings.read('docked_height');
-    if (!height || height < 60) height = 200;
+    us.width = System.Gadget.Settings.read('docked_width');
+    if (!us.width || us.width < 20) us.width = 130;
+    us.height = System.Gadget.Settings.read('docked_height');
+    if (!us.height || us.height < 60) us.height = 200;
   } else {
-    width = System.Gadget.Settings.read('undocked_width');
-    if (!width || width < 20) width = 280;
-    height = System.Gadget.Settings.read('undocked_height');
-    if (!height || height < 60) height = 350;
+    us.width = System.Gadget.Settings.read('undocked_width');
+    if (!us.width || us.width < 20) us.width = 280;
+    us.height = System.Gadget.Settings.read('undocked_height');
+    if (!us.height || us.height < 60) us.height = 350;
   }
-  render();
+  Gadget.render();
 }
 
-function setFlyout() {
+Gadget.setFlyout = function() {
   System.Gadget.Flyout.file = 'flyout.html';
   
   if(System.Gadget.Flyout.show) {
@@ -195,16 +181,16 @@ function setFlyout() {
   }
 }
 
-function flyoutShowing() {
+Gadget.flyoutShowing = function() {
   window.setTimeout('System.Gadget.Flyout.document.parentWindow.flyoutShowing()', 100);
 }
 
-function flyoutHiding() {
+Gadget.flyoutHiding = function() {
   System.Gadget.Settings.write('replyTo', '');
 }
 
-function pageUnload() {
-  window.detachEvent('onunload', pageUnload);
+Gadget.pageUnload = function() {
+  window.detachEvent('onunload', Gadget.pageUnload);
   
   if(refreshTimer) {
     clearTimeout(refreshTimer);
@@ -212,65 +198,44 @@ function pageUnload() {
   }
 }
 
-function pageLoad() {
-  window.detachEvent('onload', pageLoad);
-  window.attachEvent('onunload', pageUnload);
+Gadget.pageLoad = function() {
+  window.detachEvent('onload', Gadget.pageLoad);
+  window.attachEvent('onunload', Gadget.pageUnload);
   
-  System.Gadget.Flyout.onShow = flyoutShowing;
-  System.Gadget.Flyout.onHide = flyoutHiding;
-  $('update').onclick = setFlyout;
-  $('reload').onclick = refreshTimeline;
+  System.Gadget.Flyout.onShow = Gadget.flyoutShowing;
+  System.Gadget.Flyout.onHide = Gadget.flyoutHiding;
+  $('update').onclick = Gadget.setFlyout;
+  $('reload').onclick = Gadget.refreshTimeline;
   
-  System.Gadget.onDock = dockStateChanged;
-  System.Gadget.onUndock = dockStateChanged;
+  System.Gadget.onDock = Gadget.dockStateChanged;
+  System.Gadget.onUndock = Gadget.dockStateChanged;
   
   System.Gadget.settingsUI = 'settings.html';
-  System.Gadget.onSettingsClosed = settingsClosed;
+  System.Gadget.onSettingsClosed = Gadget.settingsClosed;
   
-  settingsRead();
+  us = new Twigadge.Settings();
+  us.read();
   
-  render();
-  if (username != '') {
-    window.setTimeout(function() { refreshTimeline(); }, 3000);
+  Gadget.render();
+  
+  if (us.username != '') {
+    window.setTimeout(function() { Gadget.refreshTimeline(); }, 3000);
   } else {
     window.setTimeout(function() {$('output').innerHTML = LOCAL.set_username; }, 3000);
   }
-  refreshFeed();
+  refreshFeed(us);
 }
 
-function refreshTimeline() {
+Gadget.refreshTimeline = function() {
   if(refreshTimer) {
     window.clearTimeout(refreshTimer);
   }
-  if (username != '') {
-    getFriendsTimeline();
+  if (us.username != '') {
+    Gadget.getFriendsTimeline();
   } else {
     $('output').innerHTML = LOCAL.set_username;
   }
-  refreshTimer = setTimeout(refreshTimeline, 1000 * 60 * interval);
+  refreshTimer = setTimeout(Gadget.refreshTimeline, 1000 * 60 * us.interval);
 }
 
-function settingsRead() {
-  username = System.Gadget.Settings.read('username');
-  if (!username) username = '';
-  passwords = System.Gadget.Settings.read('passwords');
-  if (!passwords) passwords = '';
-  interval = System.Gadget.Settings.read('interval');
-  if (!interval || interval <= 0) interval = 5;
-  post = (System.Gadget.Settings.read('post') == 'true') ? true : false;
-  
-  if(System.Gadget.docked) {
-    width = System.Gadget.Settings.read('docked_width');
-    if (!width || width < 20) width = 130;
-    height = System.Gadget.Settings.read('docked_height');
-    if (!height || height < 60) height = 200;
-  } else {
-    width = System.Gadget.Settings.read('undocked_width');
-    if (!width || width < 20) width = 280;
-    height = System.Gadget.Settings.read('undocked_height');
-    if (!height || height < 60) height = 350;
-  }
-  rollback = (System.Gadget.Settings.read('rollback') == 'true') ? true : false;
-}
-
-window.attachEvent('onload', pageLoad);
+window.attachEvent('onload', Gadget.pageLoad);
