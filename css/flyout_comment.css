@@ -40,3 +40,13 @@ body {
   font-size : 18pt;
 }
 
+a.twitter {
+  color: #000000;
+  text-decoration: none;
+}
+
+a.buzzword {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}

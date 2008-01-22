@@ -95,8 +95,10 @@ function showComment(n) {
     sgf.onShow = Gadget.flyoutShowing;
     sgf.onHide = Gadget.flyoutHiding;
     sgf.show = true;
+    sgf.document.focus();
   }
 }
+
 //-------------------------------------
 
 Gadget.render = function() {
@@ -129,7 +131,7 @@ Gadget.render = function() {
       comment += '<table cellspacing="0" cellpadding="0">';
       comment += '<tr><td width="' + w + '" ' + bgc + '>';
       comment += '<div class="scr_name"';
-      comment += ' onclick="reply(\'NAME\')" >';
+      comment += ' onclick="showComment(XXXX)" >';
       comment += '<table class="user_image" id="user_imageXXXX"';
       comment += ' background="IMG"';
       comment += ' width="' + iSize + '" height="48" align="left">';
@@ -140,7 +142,7 @@ Gadget.render = function() {
       comment += ' onmouseover="changeBgColor(\'scr_nameXXXX\')"';
       comment += ' onmouseout="backBgColor(\'scr_nameXXXX\')" >';
       comment += 'NAME</div></b>';
-      comment += '<div id="textXXXX" onclick="showComment(XXXX)">' + body + '</div>';
+      comment += '<div id="textXXXX">' + body + '</div>';
       comment += '</td></tr></table>';
       comment += '</p>';
       
