@@ -1,8 +1,9 @@
 function flyoutShowing() {
+  var sgf = System.Gadget.Flyout;
   var sgs = System.Gadget.Settings;
   var username = sgs.read('show_username');
   if(username != '') {
-    $('username').innerHTML = '<a href="http://www.twitter.com/' + username+ '/">' + username + '</a>';
+    $('username').innerHTML = '<a class="twitter" href="http://www.twitter.com/' + username+ '/">' + username + '</a>';
   } else {
     $('username').innerHTML = 'unknown';
   }
@@ -19,5 +20,5 @@ function flyoutShowing() {
     $('comment').innerHTML = 'undefined';
   }
   
-  System.Gadget.Flyout.document.body.style.height = document.documentElement.scrollHeight;
+  sgf.document.body.style.height = document.documentElement.scrollHeight;
 }
