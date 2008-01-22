@@ -6,6 +6,7 @@ var Gadget = {}; // Namespace
 var us;         // User Settings
 var json;       // JSON format
 var refreshTimer;
+var flyout_type = '';
 
 // ---- Scroll -----------------
 var Scroll = {
@@ -63,13 +64,37 @@ function backBgColor(id) {
 }
 
 function reply(name) {
-  if(System.Gadget.Flyout.show) {
-    var uptext = System.Gadget.Flyout.document.getElementById('update-text');
+  var sg = System.Gadget;
+  if(sg.Flyout.show && (flyout_type == 'comment')) {
+    System.Gadget.Flyout.show = false;
+  } else if(sg.Flyout.show && (flyout_type == 'send')) {
+    var uptext = sg.Flyout.document.getElementById('update-text');
     uptext.value += '@' + name + ' ';
     uptext.focus();
   } else {
-    System.Gadget.Settings.write('replyTo', name);
+    flyout_type = 'send';
+    sg.Settings.write('replyTo', name);
     Gadget.setFlyout();
+  }
+}
+
+function showComment(n) {
+  var sg = System.Gadget;
+  var sgf = sg.Flyout;
+  if(sgf.show) {
+    sgf.show = false;
+  } else {
+    flyout_type = 'comment';
+    var name = sg.document.getElementById('scr_name' + n);
+    sg.Settings.write('show_username', name.innerHTML);
+    var image = sg.document.getElementById('user_image' + n);
+    sg.Settings.write('show_image', image.background);
+    var text = sg.document.getElementById('text' + n);
+    sg.Settings.write('show_status', text.innerHTML);
+    sgf.file = 'flyout_comment.html';
+    sgf.onShow = Gadget.flyoutShowing;
+    sgf.onHide = Gadget.flyoutHiding;
+    sgf.show = true;
   }
 }
 //-------------------------------------
@@ -78,7 +103,7 @@ Gadget.render = function() {
   var httpURL = /(s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g; // '
   var txt = '';
   var w = (us.width - 22); // <td width=
-  var iSize = (System.Gadget.docked) ? '20' : '40'; // Image size
+  var iSize = (System.Gadget.docked) ? '20' : '48'; // Image size
   var bgc;
   
   document.body.style.width = us.width + 'px';
@@ -99,24 +124,30 @@ Gadget.render = function() {
       var body = json[i].text.replace(httpURL, '<a href="$1">$1</a>');
       body = BuzzHighlight(body);
       
-      txt += '<p class="comment">';
-      txt += '<table cellspacing="0" cellpadding="0">';
-      txt += '<tr><td width="' + w + '" ' + bgc + '>';
-      txt += '<div class="scr_name"';
-      txt += ' onclick="reply(\'' + json[i].user.screen_name +'\')" >';
-      txt += '<table class="user_image"';
-      txt += ' background="' + json[i].user.profile_image_url + '"';
-      txt += ' width="' + iSize + '" height="40" align="left">';
-      txt += '<tr><td></td></tr></table>';
-      txt += '</div>';
-      txt += '<b><div class="scr_name" id="scr_name' + i + '"';
-      txt += ' onclick="reply(\'' + json[i].user.screen_name + '\')"';
-      txt += ' onmouseover="changeBgColor(\'scr_name' + i + '\')"';
-      txt += ' onmouseout="backBgColor(\'scr_name' + i + '\')" >';
-      txt += json[i].user.screen_name + '</div></b>';
-      txt += body;
-      txt += '</td></tr></table>';
-      txt += '</p>';
+      var comment = '';
+      comment += '<p class="comment">';
+      comment += '<table cellspacing="0" cellpadding="0">';
+      comment += '<tr><td width="' + w + '" ' + bgc + '>';
+      comment += '<div class="scr_name"';
+      comment += ' onclick="reply(\'NAME\')" >';
+      comment += '<table class="user_image" id="user_imageXXXX"';
+      comment += ' background="IMG"';
+      comment += ' width="' + iSize + '" height="48" align="left">';
+      comment += '<tr><td></td></tr></table>';
+      comment += '</div>';
+      comment += '<b><div class="scr_name" id="scr_nameXXXX"';
+      comment += ' onclick="reply(\'NAME\')"';
+      comment += ' onmouseover="changeBgColor(\'scr_nameXXXX\')"';
+      comment += ' onmouseout="backBgColor(\'scr_nameXXXX\')" >';
+      comment += 'NAME</div></b>';
+      comment += '<div id="textXXXX" onclick="showComment(XXXX)">' + body + '</div>';
+      comment += '</td></tr></table>';
+      comment += '</p>';
+      
+      comment = comment.replace(/IMG/g, json[i].user.profile_image_url);
+      comment = comment.replace(/NAME/g, json[i].user.screen_name);
+      comment = comment.replace(/XXXX/g, i);
+      txt += comment;
     }
     $('render').innerHTML = txt;
   }
@@ -173,6 +204,8 @@ Gadget.dockStateChanged = function() {
 
 Gadget.setFlyout = function() {
   System.Gadget.Flyout.file = 'flyout.html';
+  System.Gadget.Flyout.onShow = Gadget.flyoutShowing;
+  System.Gadget.Flyout.onHide = Gadget.flyoutHiding;
   
   if(System.Gadget.Flyout.show) {
     System.Gadget.Flyout.show = false;
