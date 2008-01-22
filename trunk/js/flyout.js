@@ -1,6 +1,6 @@
-var username;
-var passwords;
-
+/*
+ * flyout.js
+ */
 var max_length = 140;
 
 function submitOnEnter() {
@@ -26,7 +26,7 @@ function getByte(text) {
 function updateLength() {
   var str = getByte($('update-text').value);
   var len = parseInt(str, 10);
-  if(len > 140) {
+  if(len > max_length) {
     str = '<font color="#ff0000">' + str + '</font>';
   }
   $('string-length').innerHTML = str + ' / ' + max_length;
@@ -36,26 +36,22 @@ function updateLength() {
 function updateStatus() {
   var len = parseInt(getByte($('update-text').value), 10);
   if(len == 0) {
-    $('status').innerHTML = 'too short ...';
+    $('status').innerHTML = LOCAL.short_message;
     return ;
   }
-  if(len > 140) {
-    $('status').innerHTML = 'too long ...';
+  if(len > max_length) {
+    $('status').innerHTML = LOCAL.long_message;
     return ;
   }
   
-  window.setTimeout('System.Gadget.document.parentWindow.updateStatus()', 1);
+  window.setTimeout('System.Gadget.document.parentWindow.Gadget.updateStatus()', 1);
 }
 
-function flyoutShowing() {
-  username = System.Gadget.Settings.read('username');
-  passwords = System.Gadget.Settings.read('passwords');
-  
+function flyoutShowing() {  
   var r = System.Gadget.Settings.read('replyTo');
   System.Gadget.Settings.write('replyTo', '');
   if(r != '') {
     $('update-text').value = '@' + r + ' ';
-    
   }
   $('update-text').focus();
 }
