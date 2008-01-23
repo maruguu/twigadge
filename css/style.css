@@ -10,7 +10,7 @@ body
   color: #333333;
   background: #9ae4e8 url(http://assets0.twitter.com/images/bg.gif) fixed no-repeat top left;
   font-family: Verdana;
-  font-size: 7pt;
+  font-size: 9pt;
 }
 
 .twitter_link {
@@ -20,11 +20,13 @@ body
   
 .header {
   height: 10px;
+  font-size: 7pt;
 }
 
 .footer {
   height: 10px;
   background: #8ad4d8;
+  font-size: 7pt;
 }
 
 .reload {
@@ -53,6 +55,7 @@ body
 
 .scr_name {
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .gadget {
