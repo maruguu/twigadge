@@ -15,6 +15,7 @@ Twigadge.Settings = function() {
   this.width = 130;
   this.height = 200;
   this.scroller = true;
+  this.fixed = false;
   this.buzztter = {};
   this.buzztter.enable = true;
   this.buzztter.interval = 30;
@@ -42,6 +43,10 @@ Twigadge.Settings.prototype.read = function() {
     if (!this.height || this.height < 60) this.height = 350;
   }
   this.scroller = (System.Gadget.Settings.read('scroller') == 'true') ? true : false;
+  this.fixed = (System.Gadget.Settings.read('fixed') == 'true') ? true : false;
+  this.buzztter.enable = (System.Gadget.Settings.read('buzztter.enable') == 'true') ? true : false;
+  this.buzztter.interval = System.Gadget.Settings.read('buzztter.interval');
+  if (!this.buzztter.interval || this.buzztter.interval <= 0) this.buzztter.interval = 30;
 }
 
 Twigadge.Settings.prototype.write = function() {
@@ -67,4 +72,9 @@ Twigadge.Settings.prototype.write = function() {
       System.Gadget.Settings.write('undocked_height', i);
     }
     System.Gadget.Settings.write('scroller', (this.scroller)?'true' : 'false');
+    System.Gadget.Settings.write('fixed', (this.fixed) ? 'true' : 'false');
+    System.Gadget.Settings.write('buzztter.enable', (this.buzztter.enable) ? 'true' : 'false');
+    var i = parseInt(this.buzztter.interval);
+    if(isNaN(i) || i <= 0) i = 5;
+    System.Gadget.Settings.write('buzztter.interval', i);
 }
