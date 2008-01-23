@@ -107,7 +107,7 @@ Gadget.render = function() {
   var w = (us.width - 22); // <td width=
   var iSize = (System.Gadget.docked) ? '20' : '48'; // Image size
   var bgc;
-  
+  var fixedstr = (us.fixed) ? 'style="height:42px; overflow:hidden;"' : '';
   document.body.style.width = us.width + 'px';
   document.body.style.height = us.height + 'px';
   
@@ -127,7 +127,7 @@ Gadget.render = function() {
       body = BuzzHighlight(body);
       
       var comment = '';
-      comment += '<p class="comment">';
+      comment += '<p class="comment" '+ fixedstr + '>';
       comment += '<table cellspacing="0" cellpadding="0">';
       comment += '<tr><td width="' + w + '" ' + bgc + '>';
       comment += '<div class="scr_name"';

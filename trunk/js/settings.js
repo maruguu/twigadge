@@ -27,6 +27,10 @@ Settings.store = function(page) {
     us.width = $('width').value;
     us.height = $('height').value;
     us.scroller = $('scroller').checked;
+    us.fixed = $('fixed').checked;
+  } else if(page == 2) {
+    us.buzztter.enable = $('buzz_enable').checked;
+    us.buzztter.interval = $('buzz_interval').value;
   }
 }
 
@@ -70,6 +74,10 @@ Settings.showtab = function(page) {
     $('width').value = us.width;
     $('height').value = us.height;
     $('scroller').checked = us.scroller;
+    $('fixed').checked = us.fixed;
+  } else if(page == 2) {
+    $('buzz_enable').checked = us.buzztter.enable;
+    $('buzz_interval').value = us.buzztter.interval;
   }
   previous_page = page;
 }
