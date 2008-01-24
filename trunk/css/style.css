@@ -19,8 +19,8 @@ body
 }
   
 .header {
-  height: 10px;
-  font-size: 7pt;
+  height: 20px;
+  font-size: 8pt;
 }
 
 .footer {
@@ -48,7 +48,7 @@ body
 
 .user_image {
   height : 40px ;
-  margin : 1px 1px 1px 1px;
+  margin-right : 1px;
   background-position : -10px 0px; 
   background-repeat:no-repeat;
 }
