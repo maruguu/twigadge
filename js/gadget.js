@@ -112,7 +112,7 @@ Gadget.render = function() {
   document.body.style.height = us.height + 'px';
   
   $('gadget').innerHTML = '<div class="render" id="render"></div>';
-  $('render').style.height = (us.height - 20) + 'px';
+  $('render').style.height = (us.height - 30) + 'px';
   if(json) {
     for(var i = 0; i < json.length; i++) {
       if(us.username != '') {
