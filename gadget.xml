@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <gadget>
   <name>twigadge</name>
-  <version>0.5.0.0</version>
+  <version>0.6.0.0</version>
   <author name="maruguu">
     <info url="http://twitter.com/maruguu" text="twitter/maruguu" />
     <logo src="images/icon.png" />
