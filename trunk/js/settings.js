@@ -78,6 +78,8 @@ Settings.showtab = function(page) {
   } else if(page == 2) {
     $('buzz_enable').checked = us.buzztter.enable;
     $('buzz_interval').value = us.buzztter.interval;
+  } else if(page == 3) {
+    $('version').innerHTML = 'Version ' + System.Gadget.version;
   }
   previous_page = page;
 }
