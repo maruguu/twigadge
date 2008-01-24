@@ -59,11 +59,13 @@ function getFeed() {
 }
 
 function refreshFeed(us) {
-  if(Buzztter.refreshTimer) {
-    window.clearTimeout(Buzztter.refreshTimer);
+  if(us.buzztter.enable) {
+    if(Buzztter.refreshTimer) {
+      window.clearTimeout(Buzztter.refreshTimer);
+    }
+    getFeed();
+    Buzztter.refreshTimer = setTimeout(function() { refreshFeed(us); }, 1000 * 60 * us.buzztter.interval);
   }
-  getFeed();
-  Buzztter.refreshTimer = setTimeout(function() { refreshFeed(us); }, 1000 * 60 * us.buzztter.interval);
 }
 
 function replaceBuzzword(txt, word) {

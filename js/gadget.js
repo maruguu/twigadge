@@ -124,7 +124,7 @@ Gadget.render = function() {
       }
       // URL replace
       var body = json[i].text.replace(httpURL, '<a href="$1">$1</a>');
-      body = BuzzHighlight(body);
+      if(us.buzztter.enable) body = BuzzHighlight(body);
       
       var comment = '';
       comment += '<p class="comment" '+ fixedstr + '>';
@@ -186,6 +186,7 @@ Gadget.settingsClosed = function(p_event) {
   if (p_event.closeAction == p_event.Action.commit) {
     us.read();
     Gadget.refreshTimeline();
+    refreshFeed(us);
   }
 }
 
