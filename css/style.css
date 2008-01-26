@@ -56,6 +56,7 @@ body
 .scr_name {
   cursor: pointer;
   white-space: nowrap;
+  margin-bottom : 1px;
 }
 
 .gadget {
