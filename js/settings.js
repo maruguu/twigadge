@@ -31,6 +31,8 @@ Settings.store = function(page) {
   } else if(page == 2) {
     us.buzztter.enable = $('buzz_enable').checked;
     us.buzztter.interval = $('buzz_interval').value;
+  } else if(page == 3) {
+    us.check_ver = $('check_ver').checked;
   }
 }
 
@@ -79,6 +81,7 @@ Settings.showtab = function(page) {
     $('buzz_enable').checked = us.buzztter.enable;
     $('buzz_interval').value = us.buzztter.interval;
   } else if(page == 3) {
+    $('check_ver').checked = us.check_ver;
     $('version').innerHTML = 'Version ' + System.Gadget.version;
   }
   previous_page = page;

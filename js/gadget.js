@@ -234,6 +234,48 @@ Gadget.pageUnload = function() {
   }
 }
 
+// ---- Check version ----
+Gadget.checkVersion = function() {
+  var url = "http://code.google.com/p/twigadge/wiki/ChangeLog";
+  var xhr;
+  xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
+  xhr.onreadystatechange = function(istimeout) {
+    if(xhr && xhr.readyState == 4 && xhr.status == 200) {
+      var ar = xhr.responseText.match(/Version\s(\d\.\d(\.\d)?(\.\d)?)/);
+      if(ar != null) {
+        var latest = RegExp.$1;
+        var latest_version = latest;
+        var ver = System.Gadget.version;
+        while(latest.match(/(\d)/) != null) {
+          n = RegExp.$1;
+          latest = RegExp.rightContext;
+          if(ver.match(/(\d)/) == null) break;
+          m = RegExp.$1;
+          ver = RegExp.rightContext;
+          if(n > m) {
+            if(confirm(LOCAL.check_latest + "\n\nVersion " + System.Gadget.version + " -> Version " + latest_version + "\n\n" + LOCAL.check_to_update)) {
+              open("http://code.google.com/p/twigadge/");
+            }
+          }
+        } 
+      }
+      $('output').innerHTML = LOCAL.check_finish;
+    } else if(xhr && xhr.readyState == 4) {
+      $('output').innerHTML = LOCAL.check + ":" + xhr.status + ':' + xhr.statusText;
+    } else if(xhr && istimeout == 'timeout') {
+      $('output').innerHTML = LOCAL.check_timeout;
+    } else if(xhr && xhr.readyState == 3) {
+      $('output').innerHTML = LOCAL.check_message;
+    } else {
+    }
+  };
+  xhr.send('');
+  $('output').innerHTML = LOCAL.check_start;
+}
+
+// ---- Initial function ----
 Gadget.pageLoad = function() {
   window.detachEvent('onload', Gadget.pageLoad);
   window.attachEvent('onunload', Gadget.pageUnload);
@@ -251,7 +293,9 @@ Gadget.pageLoad = function() {
   
   us = new Twigadge.Settings();
   us.read();
-  
+  if(us.check_ver) {
+    Gadget.checkVersion();
+  }
   Gadget.render();
   
   if (us.username != '') {
