@@ -2,7 +2,7 @@ twigadge - Windowsサイドバー上で動作するtwitterクライアント
 
 = 概要 =
 twigadgeはWindowsサイドバーガジェットとして動作するtwitterクライアントです。サイドバー領域を柔軟に使用したステータスの表示が可能です。
-使い方は[Usage]を参照してください。
+使い方は[Usage_ja]を参照してください。
 
 = ダウンロード =
 最新版はVersion 0.6.1です。上部タブのDownloadsからダウンロードしてください。
