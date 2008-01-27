@@ -27,10 +27,9 @@ function sortFunc(a, b) {
 }
 
 function getFeed() {
-  var rss = "http://buzztter.com/ja/rss";
   var xhr;
   xhr = new XMLHttpRequest();
-  xhr.open('GET', rss, true);
+  xhr.open('GET', LOCAL.feed_url, true);
   xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
   xhr.setRequestHeader('Content-Type', 'application/xml');
 
