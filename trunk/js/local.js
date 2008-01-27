@@ -24,3 +24,11 @@ LOCAL.get_feed_progress = "Buzztter更新中"
 LOCAL.get_feed_success  = "Buzztter更新完了";
 LOCAL.get_feed_error    = "Buzztter更新エラー";
 
+LOCAL.check = "最新版チェック";
+LOCAL.check_latest = "twigadgeの新しいバージョンが公開されています";
+LOCAL.check_to_update = "ダウンロードページを表示しますか?";
+LOCAL.check_finish = "最新版チェック完了";
+LOCAL.check_timeout = "最新版チェックのタイムアウト";
+LOCAL.check_message = "最新版のチェック中";
+LOCAL.check_start = "最新版のチェック開始";
+
