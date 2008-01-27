@@ -5,7 +5,7 @@ twigadgeはWindowsサイドバーガジェットとして動作するtwitterク�
 使い方は[Usage]を参照してください。
 
 = ダウンロード =
-最新版はVersion 0.6.1です。[Downloads]からダウンロードしてください。
+最新版はVersion 0.6.1です。上部タブのDownloadsからダウンロードしてください。
 
 更新履歴は[ChangeLog]にあります。
 = Screenshot / スクリーンショット =
