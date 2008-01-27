@@ -1,9 +1,10 @@
 function flyoutShowing() {
   var sgf = System.Gadget.Flyout;
   var sgs = System.Gadget.Settings;
+  var scr_name = sgs.read('show_scrname');
   var username = sgs.read('show_username');
   if(username != '') {
-    $('username').innerHTML = '<a class="twitter" href="http://www.twitter.com/' + username+ '/">' + username + '</a>';
+    $('username').innerHTML = '<a class="twitter" href="http://www.twitter.com/' + scr_name+ ' ">' + username + '</a>';
   } else {
     $('username').innerHTML = 'unknown';
   }

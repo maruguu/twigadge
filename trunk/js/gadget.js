@@ -85,7 +85,9 @@ function showComment(n) {
     sgf.show = false;
   } else {
     flyout_type = 'comment';
-    var name = sg.document.getElementById('scr_name' + n);
+    var scr_name = sg.document.getElementById('scr_name' + n);
+    sg.Settings.write('show_scrname', scr_name.innerHTML);
+    var name = sg.document.getElementById('name' + n);
     sg.Settings.write('show_username', name.innerHTML);
     var image = sg.document.getElementById('user_image' + n);
     sg.Settings.write('show_image', image.background);
@@ -138,17 +140,18 @@ Gadget.render = function() {
       comment += '<tr><td></td></tr></table>';
       comment += '</div>';
       comment += '<b><div class="scr_name" id="scr_nameXXXX"';
-      comment += ' onclick="reply(\'NAME\')"';
+      comment += ' onclick="reply(\'SCRNAME\')"';
       comment += ' onmouseover="changeBgColor(\'scr_nameXXXX\')"';
       comment += ' onmouseout="backBgColor(\'scr_nameXXXX\')" >';
-      comment += 'NAME</div></b>';
+      comment += 'SCRNAME</div><div id="nameXXXX" style="display: none;">NAME</div></b>';
       comment += '<div id="textXXXX">' + body + '</div>';
       comment += '</td></tr></table>';
       comment += '</p>';
       
       comment = comment.replace(/IMG/g, json[i].user.profile_image_url);
-      comment = comment.replace(/NAME/g, json[i].user.screen_name);
+      comment = comment.replace(/SCRNAME/g, json[i].user.screen_name);
       comment = comment.replace(/XXXX/g, i);
+      comment = comment.replace(/NAME/, json[i].user.name);
       txt += comment;
     }
     $('render').innerHTML = txt;
