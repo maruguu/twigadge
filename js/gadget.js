@@ -254,13 +254,15 @@ Gadget.checkVersion = function() {
         while(latest.match(/(\d)/) != null) {
           n = RegExp.$1;
           latest = RegExp.rightContext;
-          if(ver.match(/(\d)/) == null) break;
+          if(ver.match(/(\d)/) == null) {
+            Gadget.confirmToOpenWeb(latest_version);
+            break;
+          }
           m = RegExp.$1;
           ver = RegExp.rightContext;
           if(n > m) {
-            if(confirm(LOCAL.check_latest + "\n\nVersion " + System.Gadget.version + " -> Version " + latest_version + "\n\n" + LOCAL.check_to_update)) {
-              open("http://code.google.com/p/twigadge/");
-            }
+            Gadget.confirmToOpenWeb(latest_version);
+            break;
           }
         } 
       }
@@ -276,6 +278,12 @@ Gadget.checkVersion = function() {
   };
   xhr.send('');
   $('output').innerHTML = LOCAL.check_start;
+}
+
+Gadget.confirmToOpenWeb = function(latest_version) {
+  if(confirm(LOCAL.check_latest + "\n\nVersion " + System.Gadget.version + " -> Version " + latest_version + "\n\n" + LOCAL.check_to_update)) {
+    open("http://code.google.com/p/twigadge/");
+  }
 }
 
 // ---- Initial function ----
