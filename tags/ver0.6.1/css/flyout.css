@@ -1,0 +1,31 @@
+﻿* {
+  margin:0;
+  padding:0;
+}
+
+body {
+  margin:0;
+  padding:0;
+  width:210px;
+  height:110px;
+  color: #333333;
+  background: #9ae4e8 url(http://assets0.twitter.com/images/bg.gif) fixed no-repeat top left;
+  font-family: Verdana;
+  font-size: 7pt;
+}
+
+.header {
+  height: 14px;
+}
+
+textarea{
+  font-family: Verdana;
+}
+.update-text {
+  width: 200px;
+  height: 60px;
+}
+
+.update-button {
+  height: 25px;
+}
