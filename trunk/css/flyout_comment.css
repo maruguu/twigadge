@@ -50,3 +50,9 @@ a.buzzword {
   text-decoration: none;
   font-weight: bold;
 }
+
+.buttons {
+  padding : 2px 2px 2px 2px;
+  border:1px solid #000000;
+  empty-cells:show;
+}
