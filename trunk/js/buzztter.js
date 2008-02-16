@@ -37,11 +37,11 @@ function getFeed() {
     if(xhr && xhr.readyState == 4 && xhr.status == 200) {
       var xml = parseXml(xhr.responseText);
       var itemList =  xml.getElementsByTagName("item");
-      BuzzDict = new Array();
+      Buzztter.BuzzDict = new Array();
       for(var i = 0; i < itemList.length; i++) {
-        BuzzDict.push(itemList[i].getElementsByTagName("title")[0].childNodes[0].nodeValue);
+        Buzztter.BuzzDict.push(itemList[i].getElementsByTagName("title")[0].childNodes[0].nodeValue);
       }
-      BuzzDict.sort(sortFunc);
+      Buzztter.BuzzDict.sort(sortFunc);
       
       $('output').innerHTML = LOCAL.get_feed_success;
     } else if(xhr && xhr.readyState == 4) {
@@ -81,10 +81,8 @@ function replaceBuzzword(txt, word) {
 }
 
 function BuzzHighlight(txt) {
-  if(BuzzDict != null) {
-    for(var i = 1; i < BuzzDict.length; i++) {
-      txt = replaceBuzzword(txt, BuzzDict[i]);
-    }
+  for(var i = 1; i < Buzztter.BuzzDict.length; i++) {
+    txt = replaceBuzzword(txt, Buzztter.BuzzDict[i]);
   }
   return txt;
 }
