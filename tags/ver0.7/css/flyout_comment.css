@@ -1,0 +1,58 @@
+﻿* {
+  margin:0;
+  padding:0;
+}
+
+body {
+  margin:10px 10px 10px 10px;
+  padding:0;
+  width:350px;
+  color: #333333;
+  background: #9ae4e8 url(http://assets0.twitter.com/images/bg.gif) fixed no-repeat top left;
+  font: 1.15em/1.1 'Lucida Grande', sans-serif;
+  font-size: 10pt;
+}
+
+.comment {
+  padding : 5px 5px 5px 5px;
+  background: #ffffff;
+  width : 320px;
+  word-break: break-all;
+  font-size: 12pt;
+  overflow: visible;
+}
+
+.padding {
+  margin : 0px 0px 0px 20px;
+  width : 48px;
+  height : 10px;
+}
+
+
+.profile-image {
+  margin : 0px 0px 0px 20px;
+  width : 48px;
+}
+
+.username {
+  width : 240px;
+  padding : 5px 5px 5px 15px;
+  font-size : 18pt;
+}
+
+a.twitter {
+  color: #000000;
+  text-decoration: none;
+}
+
+a.buzzword {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.buttons {
+  padding : 2px 2px 2px 2px;
+  border:1px solid #000000;
+  empty-cells:show;
+}
