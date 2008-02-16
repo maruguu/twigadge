@@ -36,19 +36,20 @@ var selectionRange; // the actual selection which gets highlighted
 
 function StartSelection()
 {
-  selectionEntry = document.body.createTextRange();
-  try { 
-    selectionEntry.moveToPoint(event.clientX, event.clientY);
-  } catch (invalidPoint) { 
-    return;
+  if (event.button == 1) {
+    selectionEntry = document.body.createTextRange();
+    try { 
+      selectionEntry.moveToPoint(event.clientX, event.clientY);
+    } catch (invalidPoint) { 
+      return;
+    }
+    selectionRange = selectionEntry.duplicate();
   }
-  selectionRange = selectionEntry.duplicate();
 }
 
 function TrackSelection()
 {
-  if (event.button == 1) // only left button pressed
-  {
+  if (event.button == 1) {
     var mousePoint = document.body.createTextRange();
     try { 
       mousePoint.moveToPoint(event.clientX, event.clientY);
