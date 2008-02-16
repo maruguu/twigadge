@@ -263,6 +263,8 @@ Gadget.checkVersion = function() {
           if(n > m) {
             Gadget.confirmToOpenWeb(latest_version);
             break;
+          } else if (n < m){
+            break;
           }
         } 
       }
