@@ -81,9 +81,10 @@ function replaceBuzzword(txt, word) {
 }
 
 function BuzzHighlight(txt) {
-  for(var i = 1; i < BuzzDict.length; i++) {
-    txt = replaceBuzzword(txt, BuzzDict[i]);
-   
+  if(BuzzDict != null) {
+    for(var i = 1; i < BuzzDict.length; i++) {
+      txt = replaceBuzzword(txt, BuzzDict[i]);
+    }
   }
   return txt;
 }
