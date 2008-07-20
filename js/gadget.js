@@ -49,7 +49,7 @@ Gadget.updateStatus = function() {
     } else {
     }
   };
-  xhr.send('source=twigadge&status=' + encodeURI(uptext.value));
+  xhr.send('source=twigadge&status=' + encodeURIComponent(uptext.value));
   $('output').innerHTML = LOCAL.send_message;
   uptext.value = LOCAL.send_cation;
 }
