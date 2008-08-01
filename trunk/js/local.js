@@ -1,34 +1,55 @@
 /*
- * local.js
- *   l10n for gadget.html
+ * local.js - l10n for gadget
  */
-var LOCAL = {};
+var Local = {};
 
-// Main gadget strings
-LOCAL.set_username = "No user information";
-LOCAL.send_finish = "SEND : finished";
-LOCAL.send_timeout = "SEND : timeout";
-LOCAL.send_message = "Sending ...";
-LOCAL.send_cation = "Please wait til this window will be closed automatically";
-LOCAL.send_cation2 = "Sending";
-LOCAL.long_message = "Too long ...";
-LOCAL.short_message = "Too short ...";
+Local.gotoDLPage = "The latest version is available. \n\nVersion %%GADGET_VERSION%% -> Version %%LATEST_VERSION%%\n\nClicking OK will take you to download page";
+Local.setUsername = "set username";
+Local.getFriendsTimeline = "getting friends timeline";
+Local.getFriendsTimeline2 = "getting friends timeline ...";
+Local.getFriendsTimelineTimeout = "timeout - getting friends timeline";
+Local.getFriendsTimelineFinished = "finish - getting friends timeline";
 
-LOCAL.recv_finish = "RECV : finished";
-LOCAL.recv_timeout = "RECV : timeout";
-LOCAL.recv_message = "Receiving";
-LOCAL.recv_message2 = "Receiving ...";
+Local.getDirectMessage = "getting direct messages";
+Local.getDirectMessage2 = "getting direct messages ...";
+Local.getDirectMessageTimeout = "timeout - getting direct messages";
+Local.getDirectMessageFinished = "finish - getting direct messages";
 
-LOCAL.feed_url = "http://buzztter.com/en/rss";
-LOCAL.get_feed_start    = "Buzztter : Update";
-LOCAL.get_feed_progress = "Buzztter : Updating ..."
-LOCAL.get_feed_success  = "Buzztter : Update finished";
-LOCAL.get_feed_error    = "Buzztter : Update error";
+Local.getReply = "getting reply";
+Local.getReply2 = "getting reply ...";
+Local.getReplyTimeout = "timeout - getting reply";
+Local.getReplyFinished = "finish - getting reply";
 
-LOCAL.check = "CHCK : ";
-LOCAL.check_latest = "The latest version is available.";
-LOCAL.check_to_update = "Clicking OK will take you to download page";
-LOCAL.check_finish = "CHCK : finished";
-LOCAL.check_timeout = "CHCK : timeout";
-LOCAL.check_message = "Checking latest version ...";
-LOCAL.check_start = "Checking latest version";
+Local.buzztterUrl = "http://buzztter.com/en/";
+Local.getBuzztterFeed = "getting feed from Buzztter";
+Local.getBuzztterFeed2 = "getting feed from Buzztter ...";
+Local.getBuzztterTimeout = "timeout - getting feed from Buzztter";
+Local.getBuzztterFinished = "finished - getting feed from Buzztter";
+
+Local.error304 = "there was no new data to return.";
+Local.error400 = "you've exceeded the rate limit.";
+Local.error401 = "you need to provide authentication credentials";
+Local.error403 = "your request is forbidden."
+Local.error404 = "not found";
+Local.error500 = "Twitter is something wrong.";
+Local.error502 = "Twitter is down, or being upgraded.";
+Local.error503 = "the Twitter servers are up, but are overloaded with requests.  Try again later.";
+
+Local.messagesizeShort = "too short ...";
+Local.updateStatus = "updating your status";
+Local.updateStatus2 = "updating your status ...";
+Local.updateStatusTimeout = "timeout - updating your status";
+Local.updateStatusFinished = "finish - updating your status";
+
+Local.favorite = "favorite an update";
+Local.favorite2 = "favorite an update ...";
+Local.favoriteTimeout = "timeout - favorite an update";
+Local.favoriteFinished = "finish - favorite an update";
+
+Local.unfavorite = "unfavorite an update";
+Local.unfavorite2 = "unfavorite an update ...";
+Local.unfavoriteTimeout = "timeout - unfavorite an update";
+Local.unfavoriteFinished = "finish - unfavorite an update";
+
+
+

@@ -6,26 +6,28 @@
 body {
   margin:0;
   padding:0;
-  width:210px;
-  height:110px;
+  width:280px;
+  height:42px;
   color: #333333;
   background: #9ae4e8 url(http://assets0.twitter.com/images/bg.gif) fixed no-repeat top left;
   font-family: Verdana;
   font-size: 7pt;
 }
 
-.header {
+#header {
   height: 14px;
 }
 
 textarea{
   font-family: Verdana;
 }
-.update-text {
+#update-text {
+  margin: 0px 0px 0px 5px;
   width: 200px;
-  height: 60px;
+  height: 30px;
 }
 
-.update-button {
+#update-button {
+  margin: 5px;
   height: 25px;
 }
