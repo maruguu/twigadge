@@ -6,14 +6,14 @@
 body {
   margin:10px 10px 10px 10px;
   padding:0;
-  width:350px;
+  width:  350px;
   color: #333333;
   background: #9ae4e8 url(http://assets0.twitter.com/images/bg.gif) fixed no-repeat top left;
   font: 1.15em/1.1 'Lucida Grande', sans-serif;
   font-size: 10pt;
 }
 
-.comment {
+#comment {
   padding : 5px 5px 5px 5px;
   background: #ffffff;
   width : 320px;
@@ -22,22 +22,48 @@ body {
   overflow: visible;
 }
 
-.padding {
+#comment-footer {
+  padding : 5px 5px 5px 5px;
+  background: #ffffff;
+  width : 320px;
+  word-break: break-all;
+  font-size: 12pt;
+  overflow: visible;
+  text-align: right;
+}
+
+#padding {
   margin : 0px 0px 0px 20px;
   width : 48px;
   height : 10px;
 }
 
 
-.profile-image {
+#profile-image {
   margin : 0px 0px 0px 20px;
   width : 48px;
 }
 
-.username {
+#username {
   width : 240px;
   padding : 5px 5px 5px 15px;
   font-size : 18pt;
+  white-space : nowrap;
+  overflow: hidden;
+}
+
+#time {
+  width : 180px;
+  font-size : 9pt;
+  white-space : nowrap;
+  overflow: hidden;
+}
+
+#source {
+  width : 120px;
+  font-size : 9pt;
+  white-space : nowrap;
+  overflow: hidden;
 }
 
 a.twitter {

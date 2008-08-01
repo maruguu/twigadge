@@ -13,53 +13,11 @@ body
   font-size: 9pt;
 }
 
-.twitter_link {
-  color: #000000;
-  text-decoration: none;
-}
-  
-.header {
-  height: 20px;
-  font-size: 8pt;
+img {
+  border-style: none;
 }
 
-.footer {
-  height: 10px;
-  background: #8ad4d8;
-  font-size: 7pt;
-}
-
-.reload {
-  cursor: pointer;
-  background: #7ac4c8;
-}
-
-.update {
-  cursor: pointer;
-  background: #8ad4d8;
-}
-
-.comment {
-  border : 1px solid #7ac4c8;
-  margin : 1px 1px 1px 1px ;
-  padding : 1px 1px 1px 1px ;
-  word-break : break-all;
-}
-
-.user_image {
-  height : 40px ;
-  margin-right : 1px;
-  background-position : -10px 0px; 
-  background-repeat:no-repeat;
-}
-
-.scr_name {
-  cursor: pointer;
-  white-space: nowrap;
-  margin-bottom : 1px;
-}
-
-.gadget {
+#main {
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-face-color: #9ae4e8;
@@ -70,6 +28,50 @@ body
   scrollbar-3dlight-color: #aaf4f8;
   scrollbar-darkshadow-color: #8ad4d8;
 }
+
+#footer {
+  height: 16px;
+  background: #9ae4e8;
+  font-size: 7pt;
+}
+
+.block {
+  border : 1px solid #7ac4c8;
+  margin : 1px 1px 1px 1px ;
+  padding : 1px 1px 1px 1px ;
+  word-break : break-all;
+}
+
+.time {
+  font-size: 6pt;
+}
+
+#reload {
+  cursor: pointer;
+}
+
+#update {
+  cursor: pointer;
+}
+
+#mode {
+  cursor: pointer;
+}
+
+.user_image {
+  height : 40px ;
+  margin-right : 1px;
+  background-position : -10px 0px; 
+  background-repeat:no-repeat;
+  cursor: pointer;
+}
+
+.screen_name {
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom : 1px;
+}
+
 
 a.buzzword {
   color: #000000;
