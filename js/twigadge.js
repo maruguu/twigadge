@@ -194,8 +194,6 @@ var Twigadge = function() {
       $('main').innerHTML = '';
       return ;
     }
-    icon_timeline = false;
-    refreshNotification();
     var timeline = '';
     for(var i = 0; i < queueTimeline.length; i++) {
       timeline += getTwitBlock(queueTimeline[i], i);
@@ -256,7 +254,7 @@ var Twigadge = function() {
   var renderSystemMessage = function(queue) {
     if(queueSystemMessage == null) return ;
     
-    icon_system = false;
+    icon_error = false;
     refreshNotification();
     var message = '';
     for(var i = 0; i < queueSystemMessage.length; i++) {
@@ -269,15 +267,11 @@ var Twigadge = function() {
   
   // Notification
   var systemmessage_id = 0;
-  var latest_timeline_id = 0;
   var latest_directmessage_id = 0;
   var latest_reply_id = 0;
-  var latest_system_id = 0;
-  var icon_timeline = false;
   var icon_directmessage = false;
   var icon_reply = false;
-  var icon_system = false;
-  
+  var icon_error = false;
   var changeTimelineNotification = function() {
     if(queueTimeline == null) return;
     
@@ -289,24 +283,9 @@ var Twigadge = function() {
         break;
       }
     }
-    
-    if(latest_timeline_id > queueTimeline[0].id) {
-      latest_timeline_id = queueTimeline[0].id;
-      icon_timeline = true;
-    }
-    if(latest_reply_id > rep_id) {
+    if(latest_reply_id < rep_id) {
       latest_reply_id = rep_id;
       icon_reply = true;
-    }
-    refreshNotification();
-  };
-  
-  var changeSystemNotification = function() {
-    if(queueSystemMessage == null) return;
-    
-    if(latest_system_id > queueSystemMessage[0].id) {
-      latest_system_id = queueSystemMessage[0].id;
-      icon_system = true;
     }
     refreshNotification();
   };
@@ -321,10 +300,8 @@ var Twigadge = function() {
       $('notification').innerHTML = '<img src="images/new_directmessage.png" />';
     } else if(icon_reply) {
       $('notification').innerHTML = '<img src="images/new_reply.png" />';
-    } else if(icon_timeline) {
-      $('notification').innerHTML = '<img src="images/new_timeline.png" />';
-    } else if(icon_system) {
-      $('notification').innerHTML = '<img src="images/new_system.png" />';
+    } else if(icon_error) {
+      $('notification').innerHTML = '<img src="images/log_error.png" />';
     } else {
       $('notification').innerHTML = '<img src="images/none.png" />';
     }
@@ -608,10 +585,16 @@ var Twigadge = function() {
       if(queueSystemMessage == null) {
         queueSystemMessage = new Array();
       }
+      
+      if(lv == LOG_LEVEL.error) {
+        icon_error = true;
+        refreshNotification();
+      }
+      
       var messageUnit = {level: lv, message: msg, time: new Date().getTime(), id: ++systemmessage_id};
       queueSystemMessage.unshift(messageUnit);
       queueSystemMessage.slice(0, settings.queueSize);
-      changeSystemNotification();
+      
     },
     
     // change display mode
