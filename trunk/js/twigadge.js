@@ -686,7 +686,7 @@ var Twigadge = function() {
         var uptext = System.Gadget.Flyout.document.getElementById('update-text');
         if(typeof message != "undefined") {
           uptext.value = message;
-        } else if(MODES.dm) {
+        } else if(renderMode == MODES.dm) {
           uptext.value = "d ";
         }
         uptext.focus();
