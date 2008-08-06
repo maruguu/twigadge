@@ -13,7 +13,7 @@ var Settings = function(){
       settings.username = $('user').value;
       settings.password = $('pass').value;
       settings.interval = $('interval').value;
-      //settings.intervalDM = $('intervalDM').value;
+      settings.intervalDM = $('intervalDM').value;
       settings.getReplyFirst = $('reply').checked;
       settings.usePOSTMethod = $('post').checked;
     } else if(page == 1) {
@@ -85,7 +85,7 @@ var Settings = function(){
         $('user').value = settings.username;
         $('pass').value = settings.password;
         $('interval').value = settings.interval;
-        //$('intervalDM').value = settings.intervalDM;
+        $('intervalDM').value = settings.intervalDM;
         $('reply').checked = settings.getReplyFirst;
         $('post').checked = settings.usePOSTMethod;
       } else if(page == 1) {
