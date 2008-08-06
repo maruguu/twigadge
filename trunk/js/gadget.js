@@ -50,15 +50,17 @@ var Gadget = function() {
   
   return {
     settingsClosed: function(p_event) {
-      var settings = Twigadge.userSettings;
-      settings.read();
-      $('main').style.height = (settings.height - 16) + 'px';
-      if(settings.buzztter.enable) {
-        Buzztter.refresh(settings);
+      if (p_event.closeAction == p_event.Action.commit) {
+        var settings = Twigadge.userSettings;
+        settings.read();
+        $('main').style.height = (settings.height - 16) + 'px';
+        if(settings.buzztter.enable) {
+          Buzztter.refresh(settings);
+        }
+        Twigadge.refreshDM();
+        Twigadge.refresh();
+        Twigadge.render();
       }
-      //Twigadge.refreshDM();
-      Twigadge.refresh();
-      Twigadge.render();
     },
     
     pageLoad: function() {
@@ -70,7 +72,7 @@ var Gadget = function() {
       System.Gadget.onUndock = Twigadge.dockStateChanged;
       
       $('update').onclick = Twigadge.setSendMessageFlyout;
-      
+      $('notification').onclick = Twigadge.turnOffNotification;
       var settings = Twigadge.userSettings;
       settings.read();
       $('main').style.height = (settings.height - 16) + 'px';
@@ -83,7 +85,7 @@ var Gadget = function() {
       if(settings.buzztter.enable) {
         Buzztter.refresh(settings);
       }
-      //Twigadge.refreshDM();
+      Twigadge.refreshDM();
       if(settings.getReplyFirst) {
         Twigadge.getReply();
       } else {

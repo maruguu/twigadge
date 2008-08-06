@@ -291,7 +291,14 @@ var Twigadge = function() {
   };
   
   var changeDirectMessageNotification = function() {
-    // TODO
+    if((queueDirectMessage == null) && (queueDirectMessage.length() > 0)) {
+      return;
+    }
+    
+    if(latest_directmessage_id < queueDirectMessage[0].id) {
+      latest_directmessage_id = queueDirectMessage[0].id;
+      icon_directmessage = true;
+    }
     refreshNotification();
   };
   
@@ -543,11 +550,12 @@ var Twigadge = function() {
     
     
     getDirectMessage: function() {
-      var url = 'http://twitter.com/direct_messages.json';
+      
+      var url = 'http://twitter.com/direct_messages.json?cache='+(new Date()).getTime();
       var xhr = new XMLHttpRequest();
       xhr.open('GET', url, true, settings.username, settings.password);
-      xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
       xhr.onreadystatechange = function(istimeout) {
         if(xhr && xhr.readyState == 4 && xhr.status == 200) {
           changeConnection(CONNECTION.connected);
@@ -559,6 +567,7 @@ var Twigadge = function() {
           }
           
           queueDirectMessage = queueDirectMessage.splice(0, settings.queueSize);          Twigadge.output(LOG_LEVEL.info, Local.getDirectMessageFinished);
+          changeDirectMessageNotification();
           if((renderMode == MODES.dm) || (renderMode == MODES.system)) {
             Twigadge.render();
             if(settings.autoScroll) Twigadge.scroll(1);
@@ -601,12 +610,10 @@ var Twigadge = function() {
     changeMode: function() {
       switch (renderMode) {
       case MODES.timeline:
-      /*
         renderMode = MODES.dm;
         $('mode').innerHTML = '<img src="images/directmessage.png" />';
         break;
       case MODES.dm:
-      */
         renderMode = MODES.reply;
         $('mode').innerHTML = '<img src="images/reply.png" />';
         break;
@@ -679,6 +686,8 @@ var Twigadge = function() {
         var uptext = System.Gadget.Flyout.document.getElementById('update-text');
         if(typeof message != "undefined") {
           uptext.value = message;
+        } else if(MODES.dm) {
+          uptext.value = "d ";
         }
         uptext.focus();
       };
@@ -882,7 +891,7 @@ var Twigadge = function() {
      * favorite the id status
      */
     favorite: function(id) {
-      var url = 'http://twitter.com/favourings/create/' + id + '.json';
+      var url = 'http://twitter.com/favorites/create/' + id + '.json';
       var fav_image = System.Gadget.Flyout.document.getElementById('fav');
       xhr = new XMLHttpRequest();
       xhr.open('POST', url, true, settings.username, settings.password);
@@ -914,7 +923,7 @@ var Twigadge = function() {
      * unfavorite the id status
      */
     unfavorite: function(id) {
-      var url = 'http://twitter.com/favourings/destroy/' + id + '.json';
+      var url = 'http://twitter.com/favorites/destroy/' + id + '.json';
       var fav_image = System.Gadget.Flyout.document.getElementById('fav');
       xhr = new XMLHttpRequest();
       xhr.open('POST', url, true, settings.username, settings.password);
@@ -957,6 +966,17 @@ var Twigadge = function() {
         if (!settings.height || settings.height < 60) settings.height = 350;
       }
       Twigadge.refresh();
+    },
+    
+    turnOffNotification: function() {
+      if(icon_directmessage) {
+        icon_directmessage = false;    
+      } else if(icon_reply) {
+        icon_reply = false;
+      } else if(icon_error) {
+        icon_error = false;
+      }
+      refreshNotification();
     }
   };
 }(); // Namespace twigadge

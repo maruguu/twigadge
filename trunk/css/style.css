@@ -58,6 +58,10 @@ img {
   cursor: pointer;
 }
 
+#notification {
+  cursor: pointer;
+}
+
 .user_image {
   height : 40px ;
   margin-right : 1px;
