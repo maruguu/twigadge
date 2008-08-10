@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body
+{
+  width: 130px;
+  height: 200px;
+  color: #333333;
+  background: #9ae4e8 url(http://assets0.twitter.com/images/bg.gif) fixed no-repeat top left;
+  font-family: Verdana;
+  font-size: 9pt;
+}
+
+img {
+  border-style: none;
+}
+
+#main {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-face-color: #9ae4e8;
+  scrollbar-track-color: #aaf4f8;
+  scrollbar-arrow-color: #ffffff;
+  scrollbar-highlight-color: #baffff;
+  scrollbar-shadow-color: #7ac4c8;
+  scrollbar-3dlight-color: #aaf4f8;
+  scrollbar-darkshadow-color: #8ad4d8;
+}
+
+#footer {
+  height: 16px;
+  background: #9ae4e8;
+  font-size: 7pt;
+}
+
+.block {
+  border : 1px solid #7ac4c8;
+  margin : 1px 1px 1px 1px ;
+  padding : 1px 1px 1px 1px ;
+  word-break : break-all;
+}
+
+.time {
+  font-size: 6pt;
+}
+
+#reload {
+  cursor: pointer;
+}
+
+#update {
+  cursor: pointer;
+}
+
+#mode {
+  cursor: pointer;
+}
+
+#notification {
+  cursor: pointer;
+}
+
+.user_image {
+  height : 40px ;
+  margin-right : 1px;
+  background-position : -10px 0px; 
+  background-repeat:no-repeat;
+  cursor: pointer;
+}
+
+.screen_name {
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom : 1px;
+}
+
+
+a.buzzword {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
