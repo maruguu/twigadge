@@ -39,6 +39,7 @@ Twitterアカウント情報を入力してください。
 == 表示切替 ==
 [http://twigadge.googlecode.com/files/twigadge-timeline-icon.png]をクリックすると以下の順番で表示が切り替わります。
   * [http://twigadge.googlecode.com/files/twigadge-timeline-icon.png] タイムライン表示
+  * [http://twigadge.googlecode.com/files/twigadge-directmessage-icon.png] ダイレクトメッセージ表示
   * [http://twigadge.googlecode.com/files/twigadge-reply-icon.png] 返信表示
   * [http://twigadge.googlecode.com/files/twigadge-system-icon.png] システムメッセージ表示
 
@@ -48,9 +49,10 @@ Twitterアカウント情報を入力してください。
 
 == 通知 ==
 ウィンドウ下に以下のアイコンが表示されることがあります。
-  * [http://twigadge.googlecode.com/files/twigadge-new_reply-icon.png] 返信あり(返信表示に切り替えるまで表示され続けます)
-  * [http://twigadge.googlecode.com/files/twigadge-error-icon.png] エラー発生(システムメッセージ表示に切り替えるまで表示され続けます) 
-
+  * [http://twigadge.googlecode.com/files/twigadge-new_directmessage-icon.png] ダイレクトメッセージあり
+  * [http://twigadge.googlecode.com/files/twigadge-new_reply-icon.png] 返信あり
+  * [http://twigadge.googlecode.com/files/twigadge-error-icon.png] エラー発生
+これらの通知アイコンは、各表示に切り替えるか、アイコンをクリックすることで消すことができます。
 == Buzztter連携 ==
 タイムライン中、buzzwordが太字となって表示されます。buzzwordをクリックすると該当する[http://www.buzztter.com/ Buzztter]のページへジャンプします。
 
@@ -60,6 +62,8 @@ Twitterアカウント情報を入力してください。
 Twitterのアカウント情報を入力してください。
   * 更新間隔(分)
 オートリロード間隔を分単位で設定します。
+  * DMの更新間隔(分)
+ダイレクトメッセージの取得間隔を分単位で設定します。
   * 起動時に返信を取得
 起動時に返信の取得を行います。
   * 投稿にPOSTを使う
