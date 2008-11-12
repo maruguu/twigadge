@@ -4,13 +4,18 @@
 
 var SendMessage = function() {
   var maxLength = 140;
+  var updating = false;
+  
   return {
     updateStatus: function() {
+      if(updating) return ;
+      
       var len = $('update-text').value.length;
       if(len == 0) {
         $('status').innerHTML = Local.messagesizeShort;
         return ;
       }
+      updating = true;
       setTimeout('System.Gadget.document.parentWindow.Twigadge.updateStatus()', 1);
     },
     
