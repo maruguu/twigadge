@@ -832,7 +832,7 @@ var Twigadge = function() {
         } else {
           web.innerHTML = '';
         }
-        doc.body.style.height = comment.scrollHeight + 120;
+        doc.body.style.height = comment.scrollHeight + 130;
         doc.focus();
       };
       
@@ -880,7 +880,7 @@ var Twigadge = function() {
         } else {
           web.innerHTML = '';
         }
-        doc.body.style.height = comment.scrollHeight + 120;
+        doc.body.style.height = comment.scrollHeight + 130;
         doc.focus();
       };
       
