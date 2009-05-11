@@ -16,7 +16,7 @@ var Twigadge = function() {
     this.interval = 5;
     this.intervalDM = 60;
     this.getReplyFirst = true;
-    this.usePOSTMethod = true;
+    this.usePOSTMethod = false;
     // view tab
     this.width = 130;
     this.height = 200;
@@ -467,7 +467,7 @@ var Twigadge = function() {
     getFriendsTimeline: function() {
       var url = 'http://twitter.com/statuses/friends_timeline.json';
       //var url = 'http://twitter.com/statuses/public_timeline.json';
-      var method = (settings.usePOSTMethod) ? 'POST' : 'GET';
+      var method = 'GET';
       var xhr = new XMLHttpRequest();
       xhr.open(method, url, true, settings.username, settings.password);
       xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");
@@ -508,7 +508,7 @@ var Twigadge = function() {
     
     getReply: function() {
       var url = 'http://twitter.com/statuses/replies.json';
-      var method = (settings.usePOSTMethod) ? 'POST' : 'GET';
+      var method = 'GET';
       var xhr = new XMLHttpRequest();
       xhr.open(method, url, true, settings.username, settings.password);
       xhr.setRequestHeader('If-Modified-Since', "Sat, 1 Jan 2000 00:00:00 GMT");

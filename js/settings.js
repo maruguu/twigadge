@@ -15,7 +15,6 @@ var Settings = function(){
       settings.interval = $('interval').value;
       settings.intervalDM = $('intervalDM').value;
       settings.getReplyFirst = $('reply').checked;
-      settings.usePOSTMethod = $('post').checked;
     } else if(page == 1) {
       settings.width = $('width').value;
       settings.height = $('height').value;
@@ -87,7 +86,6 @@ var Settings = function(){
         $('interval').value = settings.interval;
         $('intervalDM').value = settings.intervalDM;
         $('reply').checked = settings.getReplyFirst;
-        $('post').checked = settings.usePOSTMethod;
       } else if(page == 1) {
         $('width').value = settings.width;
         $('height').value = settings.height;
