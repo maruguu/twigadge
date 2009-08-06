@@ -82,6 +82,8 @@ var Twigadge = function() {
     System.Gadget.Settings.write('getReplyFirst', this.getReplyFirst);
     System.Gadget.Settings.write('usePOSTMethod', this.usePOSTMethod);
     // view tab
+    if (this.width < 20) this.width = 20;
+    if (this.height < 60) this.height = 60;
     if(System.Gadget.docked) {
       this.writeInt('docked_width', this.width, 130, 20, 10000);
       this.writeInt('docked_height', this.height, 200, 60, 10000);
@@ -961,14 +963,18 @@ var Twigadge = function() {
     dockStateChanged : function() {
       if(System.Gadget.docked) {
         settings.width = System.Gadget.Settings.read('docked_width');
-        if (!settings.width || settings.width < 20) settings.width = 130;
+        if (!settings.width) settings.width = 130;
+        if (settings.width < 20) settings.width = 20;
         settings.height = System.Gadget.Settings.read('docked_height');
-        if (!settings.height || settings.height < 60) settings.height = 200;
+        if (!settings.height) settings.height = 200;
+        if (settings.height < 60) settings.height = 60;
       } else {
         settings.width = System.Gadget.Settings.read('undocked_width');
-        if (!settings.width || settings.width < 20) settings.width = 280;
+        if (!settings.width) settings.width = 280;
+        if (settings.width < 20) settings.width = 20;
         settings.height = System.Gadget.Settings.read('undocked_height');
-        if (!settings.height || settings.height < 60) settings.height = 350;
+        if (!settings.height) settings.height = 350;
+        if (settings.height < 60) settings.height = 60;
       }
       Twigadge.refresh();
     },
