@@ -47,14 +47,18 @@ var Twigadge = function() {
     // view tab
     if(System.Gadget.docked) {
       this.width = System.Gadget.Settings.read('docked_width');
-      if (!this.width || this.width < 20) this.width = 130;
+      if (!this.width) this.width = 130;
+      if (this.width < 20) this.width = 20;
       this.height = System.Gadget.Settings.read('docked_height');
-      if (!this.height || this.height < 60) this.height = 200;
+      if (!this.height) this.height = 200;
+      if (this.height < 60) this.height = 60;
     } else {
       this.width = System.Gadget.Settings.read('undocked_width');
-      if (!this.width || this.width < 20) this.width = 280;
+      if (!this.width) this.width = 280;
+      if (this.width < 20) this.width = 20;
       this.height = System.Gadget.Settings.read('undocked_height');
-      if (!this.height || this.height < 60) this.height = 350;
+      if (!this.height) this.height = 350;
+      if (this.height < 60) this.height = 60;
     }
     this.autoScroll = System.Gadget.Settings.read('autoScroll');
     this.fixedBlock = System.Gadget.Settings.read('fixedBlock');
