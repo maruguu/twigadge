@@ -7,6 +7,11 @@ var Buzztter = function() {
   var refreshTimer = null;
   var buzzwords = [];
   
+  /**
+   * Perse XML document
+   * @param[in] xmlText - XML document to be persed
+   * @return DOM object
+   */
   var parseXml = function(xmlText) {
     if (window.ActiveXObject) {
       var domDoc = new ActiveXObject('Microsoft.XMLDOM');
@@ -21,12 +26,22 @@ var Buzztter = function() {
     }
   };
   
+  /**
+   * Sort by length
+   * @param[in] a - input word
+   * @param[in] b - input word
+   * @return true if b is longer than a
+   *         false if b is NOT longer than a
+   */
   var sortFunction = function(a, b) {
     var al = a.length;
     var bl = b.length;
     return al < bl;
   }
   
+  /**
+   * Get Buzztter feed
+   */
   var getBuzztterFeed = function() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', Local.buzztterUrl + "rss", true);
@@ -57,6 +72,9 @@ var Buzztter = function() {
     Twigadge.output(Twigadge.DEBUG_LEVEL.info, Local.getBuzztterFeed);
   };
   
+  /**
+   * Refresh Buzztter feed internally
+   */
   var refreshFeed = function() {
     if(settings == null) return ;
     if(settings.buzztter.enable) {
@@ -69,6 +87,12 @@ var Buzztter = function() {
     }
   };
   
+  /**
+   * Highlight and link one buzzword
+   * @param[in] txt - text to be replaced
+   * @param[in] word - bazzword to replace
+   * @return highlighted and linked text
+   */  
   var replaceBuzzword = function(txt, word) {
     var reg = /<a (class="buzzword" )?href="[^>]+">[^<]*<\/a>/gmi;
     var output = [];
@@ -86,6 +110,10 @@ var Buzztter = function() {
 
   // ---------------- public ----------------
   return {
+    /**
+     * Refresh Buzztter feed
+     * @param[in] s - settings
+     */
     refresh: function(s) {
       settings = s;
       if(refreshTimer) {
@@ -94,12 +122,20 @@ var Buzztter = function() {
       refreshTimer = setTimeout(function() { refreshFeed(); }, 100);
     },
     
+    /**
+     * Stop to refresh Buzztter feed
+     */
     stop: function() {
       if(refreshTimer) {
         clearTimeout(refreshTimer);
       }
     },
     
+    /**
+     * Highlight and link buzzwords
+     * @param[in] txt - text to be replaced
+     * @return highlighted and linked text
+     */
     replace: function(txt) {
       for(var i = 1; i < buzzwords.length; i++) {
         txt = replaceBuzzword(txt, buzzwords[i]);
