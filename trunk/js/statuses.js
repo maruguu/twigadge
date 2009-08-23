@@ -10,6 +10,11 @@ function unfavorite(id) {
   setTimeout(function() { System.Gadget.document.parentWindow.Twigadge.unfavorite(id); }, 1);
 }
 
+function retweet(tweet) {
+  setTimeout(function() { System.Gadget.document.parentWindow.Twigadge.retweet(tweet); }, 1);
+  System.Gadget.Flyout.show = false;
+}
+
 //---- Select Text ----
 // http://www.codeproject.com/KB/gadgets/gadgettips.aspx?msg=1966061
 var selectionEntry; // stores the position where user clicked 

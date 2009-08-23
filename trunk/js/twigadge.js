@@ -8,6 +8,7 @@ var Twigadge = function() {
   var MODES = { timeline: 0, dm: 1, reply: 2, system: 3};
   var Scroller = {y: 0, count: 0};
   var flyoutType;
+  var retweetString = '';
   
   var Settings = function () {
     // connection tab
@@ -393,6 +394,22 @@ var Twigadge = function() {
     }
     
     refreshDMTimer = setTimeout(function() { refreshDirectMessage(); }, 1000 * 60 * settings.intervalDM);
+  };
+  
+  var refreshRTTimer = null;
+  var refreshRetweet = function() {
+    if(refreshRTTimer) {
+      clearTimeout(refreshRTTimer);
+    }
+    
+    if (retweetString != '') {
+      if(!System.Gadget.Flyout.show) {
+        Twigadge.setSendMessageFlyout(retweetString);
+        retweetString = '';
+      }
+    }
+    
+    refreshRTTimer = setTimeout(function() { refreshRetweet(); }, 100);
   };
   
   // get diff time string
@@ -801,7 +818,8 @@ var Twigadge = function() {
         // set link and buzzwords to text
         var httpURL = /(s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;  //'
         var body = twit.text.replace(httpURL, '<a href="$1">$1</a>');
-        
+        var hashtags = /\s*\#[a-zA-Z0-9]*[\s\r]*/g;
+        body = body.replace(hashtags, '<a href="http://search.twitter.com/search?q=$1">$1</a>');
         // highlight buzzword (from buzztter)
         if(settings.buzztter.enable) {
           body = Buzztter.replace(body);
@@ -828,9 +846,11 @@ var Twigadge = function() {
           fav.innerHTML = '<img onclick="favorite(\'' + twit.id + '\')" src="images/fav_gray.gif" />';
         }
         var image = doc.getElementById('profile-image');
-        image.innerHTML = '<img src="' + twit.user.profile_image_url + '"/>';
+        image.innerHTML = '<img src="' + twit.user.profile_image_url + '"  height="48"  width="48"/>';
         var name = doc.getElementById('username');
         name.innerHTML = twit.user.name;
+        var rt = doc.getElementById('retweet');
+        rt.innerHTML = '<div onclick="retweet(\'RT @' + twit.user.screen_name + ': ' + twit.text + '\')" style="cursor: pointer">RT</div>';
         var home = doc.getElementById('home');
         home.innerHTML = '<a class="twitter" href="http://twitter.com/' + twit.user.screen_name + '">Twitter</a>';
         var web = doc.getElementById('web');
@@ -988,6 +1008,18 @@ var Twigadge = function() {
         icon_error = false;
       }
       refreshNotification();
+    },
+    
+    retweet: function(tweet) {
+      //Twigadge.setSendMessageFlyout(tweet);
+      retweetString = tweet;
+    },
+    
+    refreshRT: function() {
+      if(refreshRTTimer) {
+        clearTimeout(refreshRTTimer);
+      }
+      refreshRTTimer = setTimeout(function() { refreshRetweet(); }, 1);
     }
   };
 }(); // Namespace twigadge

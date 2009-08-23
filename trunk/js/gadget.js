@@ -57,6 +57,7 @@ var Gadget = function() {
         if(settings.buzztter.enable) {
           Buzztter.refresh(settings);
         }
+        Twigadge.refreshRT();
         Twigadge.refreshDM();
         Twigadge.refresh();
         Twigadge.render();
@@ -91,7 +92,7 @@ var Gadget = function() {
       } else {
         Twigadge.refreshTL();
       }
-      
+      Twigadge.refreshRT();
       Twigadge.render();
     },
     
