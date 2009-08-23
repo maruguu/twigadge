@@ -178,8 +178,8 @@ var Twigadge = function() {
     
     var httpURL = /(s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;  //'
     var body = twit.text.replace(httpURL, '<a href="$1">$1</a>');
-    var hashtags = /\s*\#[a-zA-Z0-9]*[\s\r]*/g;
-    body = body.replace(hashtags, '<a href="http://search.twitter.com/search?q=$1">$1</a>');
+    var hashtags = /\s*\#([a-zA-Z0-9]*)[\s\r]*/g;
+    body = body.replace(hashtags, '<a href="http://search.twitter.com/search?q=%23$1">#$1</a>');
     // highlight buzzword (from buzztter)
     if(settings.buzztter.enable) {
       body = Buzztter.replace(body);
@@ -831,8 +831,8 @@ var Twigadge = function() {
         // set link and buzzwords to text
         var httpURL = /(s?https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;  //'
         var body = twit.text.replace(httpURL, '<a href="$1">$1</a>');
-        var hashtags = /\s*\#[a-zA-Z0-9]*[\s\r]*/g;
-        body = body.replace(hashtags, '<a href="http://search.twitter.com/search?q=$1">$1</a>');
+        var hashtags = /\s*\#([a-zA-Z0-9]*)[\s\r]*/g;
+    body = body.replace(hashtags, '<a href="http://search.twitter.com/search?q=%23$1">#$1</a>');
         // highlight buzzword (from buzztter)
         if(settings.buzztter.enable) {
           body = Buzztter.replace(body);
