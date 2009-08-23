@@ -190,7 +190,7 @@ var Twigadge = function() {
       body = body.replace(/&lt;3/g, '<img class="heart" src="images/heart.png" />');
     }
     
-    var template = '<p class="block" id="block' + no + '" ' + fixedStyle() + '><table cellspacing="0" cellpadding="0"><tr><td width="' + width + '" ' + replyStyle(twit) + '><table class="user_image" background="' + twit.user.profile_image_url + '" width="' + img_width + '" height="48" align="left" onclick="Twigadge.showStatus(\'' + no + '\')"><tr><td></td></tr></table><b><div class="screen_name" id="screen_name' + no + '" onclick="Twigadge.reply(\'' + twit.user.screen_name + '\')" onmouseover="Twigadge.highlightScreenName(\'screen_name' + no + '\')" onmouseout="Twigadge.unhighlightScreenName(\'screen_name' + no + '\')">' + twit.user.screen_name +  '</div></b><div >' + body + '</div></td></tr></table></p>';
+    var template = '<p class="block" id="block' + no + '" ' + fixedStyle() + '><table cellspacing="0" cellpadding="0"><tr><td width="' + width + '" ' + replyStyle(twit) + '><table class="user_image" background="' + twit.user.profile_image_url + '" width="' + img_width + '" height="48" align="left" onclick="Twigadge.showStatus(\'' + no + '\')"><tr><td></td></tr></table><b><div class="screen_name" id="screen_name' + no + '" onclick="Twigadge.reply(\'' + twit.user.screen_name + '\', \'' + twit.id + '\')" onmouseover="Twigadge.highlightScreenName(\'screen_name' + no + '\')" onmouseout="Twigadge.unhighlightScreenName(\'screen_name' + no + '\')">' + twit.user.screen_name +  '</div></b><div >' + body + '</div></td></tr></table></p>';
     return template;
   };
   
@@ -404,7 +404,7 @@ var Twigadge = function() {
     
     if (retweetString != '') {
       if(!System.Gadget.Flyout.show) {
-        Twigadge.setSendMessageFlyout(retweetString);
+        Twigadge.setSendMessageFlyout(retweetString, '', '');
         retweetString = '';
       }
     }
@@ -704,9 +704,16 @@ var Twigadge = function() {
     /**
      * show SEND flyout and set message to text area (if any)
      */
-    setSendMessageFlyout: function(message) {
+    setSendMessageFlyout: function(message, screen_name, status_id) {
       System.Gadget.Flyout.file = 'sendmessage.html';
       System.Gadget.Flyout.onShow = function() { 
+        if((typeof status_id != "undefined") && (status_id != '')) {
+          var targetname = System.Gadget.Flyout.document.getElementById('target-name');
+          
+          targetname.innerHTML = 'Reply To: ' + screen_name + ' ';
+          var reply_to = System.Gadget.Flyout.document.getElementById('in-reply-to');
+          reply_to.innerHTML = status_id;
+        }
         var uptext = System.Gadget.Flyout.document.getElementById('update-text');
         if(typeof message != "undefined") {
           uptext.value = message;
@@ -731,7 +738,7 @@ var Twigadge = function() {
      * if SEND flyout is showing, append '@username '. 
      * (if first letter is NOT '.', insert '.').
      */
-    reply: function(name) {
+    reply: function(name, status_id) {
       // 
       if(System.Gadget.Flyout.show && (flyoutType == 'status')) {
         System.Gadget.Flyout.show = false;
@@ -744,7 +751,7 @@ var Twigadge = function() {
         uptext.value += '@' + name + ' ';
         uptext.focus();
       } else {
-        Twigadge.setSendMessageFlyout('@' + name + ' ');
+        Twigadge.setSendMessageFlyout('@' + name + ' ', name, status_id);
       }
     },
     
@@ -762,7 +769,7 @@ var Twigadge = function() {
         uptext.value = 'd ' + name + ' ';
         uptext.focus();
       } else {
-        Twigadge.setSendMessageFlyout('d ' + name + ' ');
+        Twigadge.setSendMessageFlyout('d ' + name + ' ', name, '');
       }
     },
     
@@ -792,7 +799,13 @@ var Twigadge = function() {
         } else {
         }
       };
-      xhr.send('source=twigadge&status=' + encodeURIComponent(uptext.value));
+      var status_id='';
+      var reply_to = System.Gadget.Flyout.document.getElementById('in-reply-to');
+      
+      if(reply_to.innerHTML != '') {
+        status_id = 'in_reply_to_status_id=' + reply_to.innerHTML + '&';
+      }
+      xhr.send(status_id + 'source=twigadge&status=' + encodeURIComponent(uptext.value));
       uptext.value = Local.updateStatus;
       Twigadge.output(LOG_LEVEL.info, Local.updateStatus);
       upbutton.disabled = true;
@@ -1011,7 +1024,6 @@ var Twigadge = function() {
     },
     
     retweet: function(tweet) {
-      //Twigadge.setSendMessageFlyout(tweet);
       retweetString = tweet;
     },
     
