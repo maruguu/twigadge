@@ -7,28 +7,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
-  <link href="css/style.css" rel="stylesheet" type="text/css" />
-  <script src="js/prototype.js" type="text/javascript"></script>
+  <link id="main_css" rel="stylesheet" type="text/css" />
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script src="js/oauth.js" type="text/javascript"></script>
+  <script src="js/sha1.js" type="text/javascript"></script>
   <script src="alert.vbs" type="text/vbscript"></script>
   <script src="js/local.js" type="text/javascript"></script>
-  <script src="js/twigadge.js" type="text/javascript"></script>
   <script src="js/buzztter.js" type="text/javascript"></script>
+  <script src="js/userinterface.js" type="text/javascript"></script>
+  <script src="js/twigadge.js" type="text/javascript"></script>
   <script src="js/gadget.js" type="text/javascript"></script>
 </head>
-<body>
+<body onload="Gadget.pageLoad();">
+  <div id="header"></div>
   <div id="main"></div>
-  <div id="footer">
-  <table cellspacing="0" cellpadding="0">
-    <tr>
-      <td id="update"><img src="images/update.png" /></td>
-      <td width="100%"></td>
-      <td id="notification"><img src="images/none.png" /></td>
-      <td id="connection"><img src="images/not_connected.png" /></td>
-      <td id="mode"><img src="images/timeline.png" /></td>
-      <td><a class="twitter_link" href="http://www.twitter.com/home/" ><img src="images/home.png" /></a></td>
-      <td id="reload"><img src="images/reload.png" /></td>
-    </tr>
-    </table><br />
-  </div>
+  <div id="footer"></div>
 </body>
 </html>

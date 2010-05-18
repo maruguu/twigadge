@@ -10,23 +10,18 @@ var Settings = function(){
    */
   var store = function(page) {
     if(page == 0) {
-      settings.username = $('user').value;
-      settings.password = $('pass').value;
-      settings.interval = $('interval').value;
-      settings.intervalDM = $('intervalDM').value;
-      settings.getReplyFirst = $('reply').checked;
+      settings.interval = $('#interval').val();
     } else if(page == 1) {
-      settings.width = $('width').value;
-      settings.height = $('height').value;
-      settings.autoScroll = $('scroller').checked;
-      settings.fixedBlock = $('fixed').checked;
-      settings.enableHeart = $('heart').checked;
+      settings.width = $('#width').val();
+      settings.height = $('#height').val();
+      settings.autoScroll = $('#scroller').attr('checked');
+      settings.fixedBlock = $('#fixed').attr('checked');
     } else if(page == 2) {
-      settings.buzztter.enable = $('buzz_enable').checked;
-      settings.buzztter.interval = $('buzz_interval').value;
-      settings.queueSize = $('queueSize').value;
+      settings.buzztter.enable = $('#buzz_enable').attr('checked');
+      settings.buzztter.interval = $('#buzz_interval').val();
+      settings.queueSize = $('#queueSize').val();
     } else if(page == 3) {
-      settings.checkVersion = $('check_ver').checked;
+      settings.checkVersion = $('#check_ver').attr('checked');
     }
   };
 
@@ -65,40 +60,41 @@ var Settings = function(){
         store(previous_page);
       }
       // render menu
-      $('menu').innerHTML = "";
+      $('#menu').empty();
       for(var i = 0; i < menu.length; i++) {
         var m = menu[i];
         if(i == page) {
           m = m.replace("tab", "current_tab");
         }
-        $('menu').innerHTML += m;
+        $('#menu').append(m);
         if(i < menu.length - 1) {
-          $('menu').innerHTML += " | ";
+          $('#menu').append(" | ");
         }
       }
       
       // content
-      $('content').innerHTML = content;
+      $('#content').empty();
+      $('#content').append(content);
       
       if(page == 0) {
-        $('user').value = settings.username;
-        $('pass').value = settings.password;
-        $('interval').value = settings.interval;
-        $('intervalDM').value = settings.intervalDM;
-        $('reply').checked = settings.getReplyFirst;
+        if(settings.screen_name != '') {
+          $('#authorization').text(LocalSettings.authStatus + settings.screen_name);
+        } else {
+          $('#authorization').text(LocalSettings.notAuthorized);
+        }
+        $('#interval').val(settings.interval);
       } else if(page == 1) {
-        $('width').value = settings.width;
-        $('height').value = settings.height;
-        $('scroller').checked = settings.autoScroll;
-        $('fixed').checked = settings.fixedBlock;
-        $('heart').checked = settings.enableHeart;
+        $('#width').val(settings.width);
+        $('#height').val(settings.height);
+        $('#scroller').attr('checked', settings.autoScroll);
+        $('#fixed').attr('checked', settings.fixedBlock);
       } else if(page == 2) {
-        $('buzz_enable').checked = settings.buzztter.enable;
-        $('buzz_interval').value = settings.buzztter.interval;
-        $('queueSize').value = settings.queueSize;
+        $('#buzz_enable').attr('checked', settings.buzztter.enable);
+        $('#buzz_interval').val(settings.buzztter.interval);
+        $('#queueSize').val(settings.queueSize);
       } else if(page == 3) {
-        $('check_ver').checked = settings.checkVersion;
-        $('version').innerHTML = 'Version ' + System.Gadget.version;
+        $('#check_ver').attr('checked', settings.checkVersion);
+        $('#version').text('Version ' + System.Gadget.version);
       }
       previous_page = page;
     }
