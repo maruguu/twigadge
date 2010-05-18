@@ -150,8 +150,8 @@ var Twigadge = function() {
   var TwitterAPI = function (at, ats) {
     this.requestQueue = new Array();
     this.busy = false;
-    this.consumer = 
-    { consumerKey   : '8lQxrxGJX35qNfosCsNiuw',
+    this.consumer = { 
+      consumerKey   : '8lQxrxGJX35qNfosCsNiuw',
       consumerSecret: 'PbmarD6aXoxV4Xo7zVmqyMkZsyNPdPoxOtTp8YKg0'
     };
     this.token = '';
@@ -174,11 +174,19 @@ var Twigadge = function() {
    * Post API
    */
   TwitterAPI.prototype.post = function(api, content, callback) {
-    var accessor = 
-    {consumerSecret: this.consumer.consumerSecret, tokenSecret: this.atoken_secret};
+    var accessor = {
+      consumerSecret: this.consumer.consumerSecret, 
+      tokenSecret: this.atoken_secret
+    };
     
     var message = {
-      method: "POST", action: api, parameters: { oauth_signature_method: "HMAC-SHA1", oauth_consumer_key: this.consumer.consumerKey, oauth_token: this.atoken}
+      method: "POST", 
+      action: api, 
+      parameters: { 
+        oauth_signature_method: "HMAC-SHA1", 
+        oauth_consumer_key: this.consumer.consumerKey, 
+        oauth_token: this.atoken
+      }
     };
     for ( var key in content ) {
       message.parameters[key] = content[key];
@@ -190,10 +198,16 @@ var Twigadge = function() {
       type: message.method,
       url: target,
       dataType: 'json',
-      success: function(d, dt) { ViewManager.showProgress(Twigadge.CONNECT.POST_TL, true); callback(d, dt); Twigadge.nextRequest(); },
+      success: function(d, dt) { 
+        ViewManager.showProgress(Twigadge.CONNECT.POST_TL, true); 
+        callback(d, dt); 
+        Twigadge.nextRequest(); 
+      },
       error: Twigadge.connectionError,
       timeout: 1000 * 50,
-      beforeSend: function(xhr) { ViewManager.showProgress(Twigadge.CONNECT.POST_TL, false); }
+      beforeSend: function(xhr) { 
+        ViewManager.showProgress(Twigadge.CONNECT.POST_TL, false); 
+      }
     };
     this.requestQueue.push(options);
     this.nextRequest();
@@ -203,11 +217,19 @@ var Twigadge = function() {
    * Get API
    */
   TwitterAPI.prototype.get = function(api, callback) {
-    var accessor = 
-    {consumerSecret: this.consumer.consumerSecret, tokenSecret: this.atoken_secret};
+    var accessor = {
+      consumerSecret: this.consumer.consumerSecret, 
+      tokenSecret: this.atoken_secret
+    };
     
     var message = {
-      method: "GET", action: api, parameters: { oauth_signature_method: "HMAC-SHA1", oauth_consumer_key: this.consumer.consumerKey, oauth_token: this.atoken}
+      method: "GET", 
+      action: api, 
+      parameters: { 
+        oauth_signature_method: "HMAC-SHA1", 
+        oauth_consumer_key: this.consumer.consumerKey, 
+        oauth_token: this.atoken
+      }
     };
     OAuth.setTimestampAndNonce(message);
     OAuth.SignatureMethod.sign(message, accessor);
@@ -216,10 +238,16 @@ var Twigadge = function() {
       type: message.method,
       url: target,
       dataType: 'json',
-      success: function(d, dt) { ViewManager.showProgress(Twigadge.CONNECT.FRIEND_TL, true); callback(d, dt); Twigadge.nextRequest(); },
+      success: function(d, dt) { 
+        ViewManager.showProgress(Twigadge.CONNECT.FRIEND_TL, true); 
+        callback(d, dt); 
+        Twigadge.nextRequest(); 
+      },
       error: Twigadge.connectionError,
       timeout: 1000 * 50,
-      beforeSend: function(xhr) { ViewManager.showProgress(Twigadge.CONNECT.FRIEND_TL, false); }
+      beforeSend: function(xhr) { 
+        ViewManager.showProgress(Twigadge.CONNECT.FRIEND_TL, false); 
+      }
     };
     this.requestQueue.push(options);
     this.nextRequest();
@@ -230,11 +258,18 @@ var Twigadge = function() {
    * @param[in] (string)errorMsg - error message if the request is retry.
    */
   TwitterAPI.prototype.getRequestToken = function(errorMsg) {
-    var accessor = 
-    {consumerSecret: this.consumer.consumerSecret, tokenSecret: ''};
+    var accessor = {
+      consumerSecret: this.consumer.consumerSecret, 
+      tokenSecret: ''
+    };
     
     var message = {
-      method: "GET", action: "http://twitter.com/oauth/request_token", parameters: { oauth_signature_method: "HMAC-SHA1", oauth_consumer_key: this.consumer.consumerKey}
+      method: "GET", 
+      action: "http://twitter.com/oauth/request_token", 
+      parameters: { 
+        oauth_signature_method: "HMAC-SHA1", 
+        oauth_consumer_key: this.consumer.consumerKey
+      }
     };
     OAuth.setTimestampAndNonce(message);
     OAuth.SignatureMethod.sign(message, accessor);
@@ -242,7 +277,15 @@ var Twigadge = function() {
     var options = {
       type: message.method,
       url: target,
-      success: function(d, dt) { ViewManager.showProgress(Twigadge.CONNECT.AUTH, true); d.search(/oauth_token=([\w-]+)\&/); twitterapi.token = RegExp.$1; d.search(/oauth_token_secret=([\w-]+)\&/); twitterapi.token_secret = RegExp.$1; ViewManager.showOAuthAuthorization(twitterapi.token, errorMsg); Twigadge.nextRequest(); },
+      success: function(d, dt) { 
+        ViewManager.showProgress(Twigadge.CONNECT.AUTH, true); 
+        d.search(/oauth_token=([\w-]+)\&/); 
+        twitterapi.token = RegExp.$1; 
+        d.search(/oauth_token_secret=([\w-]+)\&/); 
+        twitterapi.token_secret = RegExp.$1; 
+        ViewManager.showOAuthAuthorization(twitterapi.token, errorMsg); 
+        Twigadge.nextRequest(); 
+      },
       error: Twigadge.connectionError,
       timeout: 1000 * 50
     };
@@ -251,10 +294,20 @@ var Twigadge = function() {
   };
   
   TwitterAPI.prototype.getAccessToken = function(pin) {
-    var accessor = {consumerSecret: this.consumer.consumerSecret, tokenSecret: this.token_secret};
+    var accessor = {
+      consumerSecret: this.consumer.consumerSecret, 
+      tokenSecret: this.token_secret
+    };
     
     var message = {
-      method: "GET", action: "http://twitter.com/oauth/access_token", parameters: { oauth_signature_method: "HMAC-SHA1", oauth_consumer_key: this.consumer.consumerKey, oauth_token: this.token, oauth_verifier: pin}
+      method: "GET", 
+      action: "http://twitter.com/oauth/access_token", 
+      parameters: { 
+        oauth_signature_method: "HMAC-SHA1", 
+        oauth_consumer_key: this.consumer.consumerKey, 
+        oauth_token: this.token, 
+        oauth_verifier: pin
+      }
     };
     OAuth.setTimestampAndNonce(message);
     OAuth.SignatureMethod.sign(message, accessor);
@@ -262,8 +315,21 @@ var Twigadge = function() {
     var options = {
       type: message.method,
       url: target,
-      success: function(d, dt) { ViewManager.showProgress(Twigadge.CONNECT.AUTH, true); d.search(/oauth_token=([\w-]+)\&/); twitterapi.atoken = RegExp.$1; d.search(/oauth_token_secret=([\w-]+)\&/); twitterapi.atoken_secret = RegExp.$1; d.search(/screen_name=([\w-]+)/); Twigadge.userSettings.writeAccessToken(twitterapi.atoken, twitterapi.atoken_secret, RegExp.$1); Twigadge.getFriendTL(); Twigadge.nextRequest(); },
-      error: function() { twitterapi.getRequestToken(Local.wrongPIN); Twigadge.nextRequest();},
+      success: function(d, dt) { 
+        ViewManager.showProgress(Twigadge.CONNECT.AUTH, true); 
+        d.search(/oauth_token=([\w-]+)\&/); 
+        twitterapi.atoken = RegExp.$1; 
+        d.search(/oauth_token_secret=([\w-]+)\&/); 
+        twitterapi.atoken_secret = RegExp.$1; 
+        d.search(/screen_name=([\w-]+)/); 
+        Twigadge.userSettings.writeAccessToken(twitterapi.atoken, twitterapi.atoken_secret, RegExp.$1); 
+        Twigadge.getFriendTL(); 
+        Twigadge.nextRequest(); 
+      },
+      error: function() { 
+        twitterapi.getRequestToken(Local.wrongPIN); 
+        Twigadge.nextRequest();
+      },
       timeout: 1000 * 50
     };
     this.requestQueue.push(options);
