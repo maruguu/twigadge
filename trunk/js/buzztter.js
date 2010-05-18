@@ -57,19 +57,18 @@ var Buzztter = function() {
           buzzwords.push(itemList[i].getElementsByTagName("title")[0].childNodes[0].nodeValue);
         }
         buzzwords.sort(sortFunction);
-        Twigadge.output(Twigadge.DEBUG_LEVEL.info, Local.getBuzztterFinished);
-        
+        //Twigadge.output(Twigadge.DEBUG_LEVEL.info, Local.getBuzztterFinished);
       } else if(xhr && xhr.readyState == 4) {
-       Twigadge.output(Twigadge.DEBUG_LEVEL.error, "Buzztter:" + xhr.status + ':' + xhr.statusText);
+       //Twigadge.output(Twigadge.DEBUG_LEVEL.error, "Buzztter:" + xhr.status + ':' + xhr.statusText);
       } else if(xhr && istimeout == 'timeout') {
-        Twigadge.output(Twigadge.DEBUG_LEVEL.error, Local.getBuzztterTimeout);
+        //Twigadge.output(Twigadge.DEBUG_LEVEL.error, Local.getBuzztterTimeout);
       } else if(xhr && xhr.readyState == 3) {
-        Twigadge.output(Twigadge.DEBUG_LEVEL.info, Local.getBuzztterFeed2);
+        //Twigadge.output(Twigadge.DEBUG_LEVEL.info, Local.getBuzztterFeed2);
       } else {
       }
     }
     xhr.send('');
-    Twigadge.output(Twigadge.DEBUG_LEVEL.info, Local.getBuzztterFeed);
+    //Twigadge.output(Twigadge.DEBUG_LEVEL.info, Local.getBuzztterFeed);
   };
   
   /**
@@ -144,3 +143,4 @@ var Buzztter = function() {
     }
   };
 }();
+

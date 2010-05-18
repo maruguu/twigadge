@@ -3,6 +3,26 @@
  */
 
 var Gadget = function() {
+//-----------------------------------------------------------------------------
+// Private variables
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Private methods
+//-----------------------------------------------------------------------------
+
+  var init = function() {
+    var settings = Twigadge.userSettings;
+    settings.read();
+    if(settings.buzztter.enable) {
+      Buzztter.refresh(settings);
+    } else {
+      Buzztter.stop();
+    }
+    
+    Twigadge.getFriendTL();
+  };
+  
   // Check the latest version of gadget
   var checkLatestVersion = function() {
     var url = "http://code.google.com/p/twigadge/wiki/ChangeLog";
@@ -48,60 +68,32 @@ var Gadget = function() {
     }
   };
   
+  
   return {
+  
+//-----------------------------------------------------------------------------
+// Public methods
+//-----------------------------------------------------------------------------
+
     settingsClosed: function(p_event) {
       if (p_event.closeAction == p_event.Action.commit) {
-        var settings = Twigadge.userSettings;
-        settings.read();
-        $('main').style.height = (settings.height - 16) + 'px';
-        if(settings.buzztter.enable) {
-          Buzztter.refresh(settings);
-        }
-        Twigadge.refreshRT();
-        Twigadge.refreshDM();
-        Twigadge.refresh();
-        Twigadge.render();
+        init();
       }
     },
     
     pageLoad: function() {
-      window.detachEvent('onload', Gadget.pageLoad);
-      
       System.Gadget.settingsUI = 'settings.html';
       System.Gadget.onSettingsClosed = Gadget.settingsClosed;
-      System.Gadget.onDock = Twigadge.dockStateChanged;
-      System.Gadget.onUndock = Twigadge.dockStateChanged;
+      System.Gadget.onDock = ViewManager.dockStateChanged;
+      System.Gadget.onUndock = ViewManager.dockStateChanged;
       
-      $('update').onclick = Twigadge.setSendMessageFlyout;
-      $('notification').onclick = Twigadge.turnOffNotification;
       var settings = Twigadge.userSettings;
       settings.read();
-      $('main').style.height = (settings.height - 16) + 'px';
       if(settings.checkVersion) {
         checkLatestVersion();
       }
+      init();
       
-      $('mode').onclick = Twigadge.changeMode;
-      $('reload').onclick = Twigadge.refresh;
-      if(settings.buzztter.enable) {
-        Buzztter.refresh(settings);
-      }
-      Twigadge.refreshDM();
-      if(settings.getReplyFirst) {
-        Twigadge.getReply();
-      } else {
-        Twigadge.refreshTL();
-      }
-      Twigadge.refreshRT();
-      Twigadge.render();
-    },
-    
-    pageUnload: function() {
-      window.detachEvent('onunload', Gadget.pageUnload);
-
     }
   };
 }();
-
-window.attachEvent('onload', Gadget.pageLoad);
-

@@ -1,18 +1,25 @@
 /*
- * statuses.js
+ * twit.js
  */
- 
+
 function favorite(id) {
-  setTimeout(function() { System.Gadget.document.parentWindow.Twigadge.favorite(id); }, 1);
+  setTimeout(function() { 
+    var p = System.Gadget.document.parentWindow;
+    p.ViewManager.updateFavStatusInTwitFlyout(p.Twigadge.FAVORITE.CHANGING);
+    p.ViewManager.favorite(id); 
+  }, 1);
 }
 
 function unfavorite(id) {
-  setTimeout(function() { System.Gadget.document.parentWindow.Twigadge.unfavorite(id); }, 1);
+  setTimeout(function() { 
+    var p = System.Gadget.document.parentWindow;
+    p.ViewManager.updateFavStatusInTwitFlyout(p.Twigadge.FAVORITE.CHANGING);
+    p.ViewManager.unfavorite(id);
+  }, 1);
 }
 
-function retweet(tweet) {
-  setTimeout(function() { System.Gadget.document.parentWindow.Twigadge.retweet(tweet); }, 1);
-  System.Gadget.Flyout.show = false;
+function retweet(id) {
+  setTimeout(function() { System.Gadget.document.parentWindow.ViewManager.retweet(id); }, 1);
 }
 
 //---- Select Text ----
@@ -60,9 +67,11 @@ function TrackSelection()
 
 function copyText() {
   if ((document.selection != null) && (document.selection.type == "Text")) {
-    $('output').innerHTML = "Copy : " + selectionRange.text.substring(0, 10);
-    if(selectionRange.text.length > 10) {
-      $('output').innerHTML += "..."
+    var doc = System.Gadget.Flyout.document;
+    var op = doc.getElementById('output');
+    op.innerHTML = "Copy : " + selectionRange.text.substring(0, 5);
+    if(selectionRange.text.length > 5) {
+      op.innerHTML += "..."
     }
     window.clipboardData.setData("text", selectionRange.text);
   }

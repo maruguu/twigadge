@@ -49,7 +49,7 @@ body {
 #username {
   width : 240px;
   padding : 5px 5px 5px 15px;
-  font-size : 18pt;
+  font-size : 12pt;
   white-space : nowrap;
   overflow: hidden;
 }
@@ -81,6 +81,9 @@ a.buzzword {
 
 .buttons {
   padding : 2px 2px 2px 2px;
-  border:1px solid #000000;
   empty-cells:show;
+}
+
+img {
+    border-style:none;
 }

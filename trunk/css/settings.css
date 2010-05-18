@@ -5,7 +5,7 @@
 
 body {
   width: 210px;
-  height: 260px;
+  height: 200px;
 }
 
 .input-box {
@@ -25,4 +25,8 @@ body {
   margin : 1px 1px 1px 1px ;
   padding : 1px 1px 1px 1px ;
   word-break : break-all;  
+}
+
+#authorization {
+  font-weight : bold;
 }
