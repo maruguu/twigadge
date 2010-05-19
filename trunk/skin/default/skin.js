@@ -2,6 +2,7 @@
  * default skin
  */
 Skin = function() {
+  this.tl_started = false; // timeline view is started or not
 };
 
 Skin.prototype.initializeHeader = function() {
@@ -101,6 +102,7 @@ var popupMenuHelp = function(no) {
 
 // Entry point for refresh friends timeline
 Skin.prototype.renderFriendsTimeline = function(queue) {
+  this.tl_started = true;
   var settings = Twigadge.userSettings;
   document.body.style.width = settings.width + 'px';
   document.body.style.height = settings.height + 'px';
@@ -137,6 +139,9 @@ Skin.prototype.renderDM = function(queue) {
 Skin.prototype.renderSystemMessage = function(queue) {
   if(queue == null) return ;
   if(queue.length < 1) return ;
+  
+  // if timeline view is started, not render system message
+  if(this.tl_started) return;
   
   // display the middle of the gadget (height / 2 - 20)
   var settings = Twigadge.userSettings;
