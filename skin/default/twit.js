@@ -22,6 +22,10 @@ function retweet(id) {
   setTimeout(function() { System.Gadget.document.parentWindow.ViewManager.retweet(id); }, 1);
 }
 
+function rt_format(id) {
+  setTimeout(function() { System.Gadget.document.parentWindow.ViewManager.rt_format(id); }, 1);
+}
+
 //---- Select Text ----
 // http://www.codeproject.com/KB/gadgets/gadgettips.aspx?msg=1966061
 var selectionEntry; // stores the position where user clicked 

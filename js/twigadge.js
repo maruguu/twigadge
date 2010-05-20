@@ -549,6 +549,17 @@ var Twigadge = function() {
       twitterapi.post('http://api.twitter.com/1/favorites/destroy/' + id + '.json', content, callback);
     },
     
+    /**
+     * retweet the tweet
+     * @param[in] id - tweet id
+     */
+    retweet: function(id) {
+      var callback = function(data, datatype) {
+      };
+      var content = {};
+      twitterapi.post('http://api.twitter.com/1/statuses/retweet/' + id + '.json', content, callback);
+    },
+    
     // ---- UI update ----
     refresh: function() {
       if(Twigadge.init()) {
