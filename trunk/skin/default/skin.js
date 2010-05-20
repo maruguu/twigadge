@@ -340,8 +340,8 @@ Skin.prototype.showTwitFlyout = function(twit) {
     image.innerHTML = '<img src="' + twit.user.profile_image_url + '"  height="48"  width="48"/>';
     var name = doc.getElementById('username');
     name.innerHTML = twit.user.name;
-    var rt = doc.getElementById('retweet');
-    rt.innerHTML = '<div onclick="retweet(\'' + twit.id + '\')" style="cursor: pointer"><img src="images/rt.png"/></div>';
+    var rt = doc.getElementById('rt_format');
+    rt.innerHTML = '<div onclick="rt_format(\'' + twit.id + '\')" style="cursor: pointer"><img src="images/rt.png"/></div>';
     var home = doc.getElementById('home');
     home.innerHTML = '<a class="twitter" href="http://twitter.com/' + twit.user.screen_name + '"><img src="images/tl.png"/></a>';
     var web = doc.getElementById('web');

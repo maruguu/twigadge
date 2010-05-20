@@ -171,10 +171,20 @@ var ViewManager = function() {
     },
     
     /**
-     * show update flyout with retweet text
+     * retweet the tweet
      * @param[in] (int)id - id of the tweet
      */
     retweet: function(id) {
+      viewtask.push(function() { 
+        viewtask.finish();
+      });
+    },
+    
+    /**
+     * show update flyout with retweet text
+     * @param[in] (int)id - id of the tweet
+     */
+    rt_format: function(id) {
       viewtask.push(function() { 
         twit = Twigadge.getTwit(id);
         if(twit != null) {
