@@ -154,7 +154,7 @@ var ViewManager = function() {
      */
     favorite: function(id) {
       viewtask.push(function() {
-        setTimeout(function() { Twigadge.favorite(id); }, 1);
+        Twigadge.favorite(id);
         viewtask.finish();
       });
     },
@@ -165,7 +165,7 @@ var ViewManager = function() {
      */
     unfavorite: function(id) {
       viewtask.push(function() {
-        setTimeout(function() { Twigadge.unfavorite(id); }, 1);
+        Twigadge.unfavorite(id);
         viewtask.finish();
       });
     },
@@ -345,7 +345,7 @@ var ViewManager = function() {
      */
     updateFavStatusInTwitFlyout: function(fav) {
       viewtask.push(function() {
-        setTimeout(function() { current_skin.updateFavStatusInTwitFlyout(fav); }, 1);
+        current_skin.updateFavStatusInTwitFlyout(fav);
         viewtask.finish();
       });
     },
