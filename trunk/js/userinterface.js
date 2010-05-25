@@ -176,6 +176,7 @@ var ViewManager = function() {
      */
     retweet: function(id) {
       viewtask.push(function() { 
+        Twigadge.retweet(id);
         viewtask.finish();
       });
     },
