@@ -336,6 +336,8 @@ Skin.prototype.showTwitFlyout = function(twit) {
     } else {
       fav.innerHTML = '<img onclick="favorite(\'' + twit.id + '\')" src="images/fav_gray.gif" style="cursor: pointer" />';
     }
+    var retweet = doc.getElementById('retweet');
+    retweet.innerHTML = '<div onclick="retweet(\'' + twit.id + '\')" style="font-size : 8pt;">Retweet</div>';
     var image = doc.getElementById('profile-image');
     image.innerHTML = '<img src="' + twit.user.profile_image_url + '"  height="48"  width="48"/>';
     var name = doc.getElementById('username');
