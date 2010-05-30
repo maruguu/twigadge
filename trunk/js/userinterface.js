@@ -352,6 +352,17 @@ var ViewManager = function() {
     },
     
     /**
+     * update retweet status in twit flyout
+     * @param[in] (Twigadge.RETWEET)rt - retweet status
+     */
+    updateRetweetStatusInTwitFlyout: function(rt) {
+      viewtask.push(function() {
+        current_skin.updateRetweetStatusInTwitFlyout(rt);
+        viewtask.finish();
+      });
+    },
+    
+    /**
      * show oauth authorization window
      * @param[in] (string)oauth_token - for accessing authorization page.
      * @param[in] (string)errorMsg - error message.
