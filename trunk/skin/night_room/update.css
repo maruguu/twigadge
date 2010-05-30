@@ -14,13 +14,13 @@ body {
   font-size: 7pt;
 }
 
-#header {
-  height: 14px;
+#flyout {
   color: #fffedf;
   background: #3e4147;
 }
 
-#content {
+#header {
+  height: 14px;
   color: #fffedf;
   background: #3e4147;
 }
