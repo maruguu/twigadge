@@ -19,7 +19,11 @@ function unfavorite(id) {
 }
 
 function retweet(id) {
-  setTimeout(function() { System.Gadget.document.parentWindow.ViewManager.retweet(id); }, 1);
+  setTimeout(function() { 
+    var p = System.Gadget.document.parentWindow;
+    p.ViewManager.updateRetweetStatusInTwitFlyout(p.Twigadge.RETWEET.CHANGING);
+    p.ViewManager.retweet(id); 
+  }, 1);
 }
 
 function rt_format(id) {

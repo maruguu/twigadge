@@ -387,6 +387,7 @@ var Twigadge = function() {
     LOG_LV: LOG_LEVEL,
     CONNECT: { AUTH: 0, FRIEND_TL: 1, POST_TL: 2, ERROR: 3},
     FAVORITE: { TRUE: 0, FALSE: 1, CHANGING: 2},
+    RETWEET: { TRUE: 0, FALSE: 1, CHANGING: 2},
 //-----------------------------------------------------------------------------
 // Public methods
 //-----------------------------------------------------------------------------
@@ -555,6 +556,7 @@ var Twigadge = function() {
      */
     retweet: function(id) {
       var callback = function(data, datatype) {
+        ViewManager.updateRetweetStatusInTwitFlyout(Twigadge.RETWEET.TRUE);
       };
       var content = {};
       twitterapi.post('http://api.twitter.com/1/statuses/retweet/' + id + '.json', content, callback);

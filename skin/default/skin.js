@@ -337,7 +337,7 @@ Skin.prototype.showTwitFlyout = function(twit) {
       fav.innerHTML = '<img onclick="favorite(\'' + twit.id + '\')" src="images/fav_gray.gif" style="cursor: pointer" />';
     }
     var retweet = doc.getElementById('retweet');
-    retweet.innerHTML = '<div onclick="retweet(\'' + twit.id + '\')" style="font-size : 8pt;">Retweet</div>';
+    retweet.innerHTML = '<img onclick="retweet(\'' + twit.id + '\')" src="images/retweet.png" />';
     var image = doc.getElementById('profile-image');
     image.innerHTML = '<img src="' + twit.user.profile_image_url + '"  height="48"  width="48"/>';
     var name = doc.getElementById('username');
@@ -399,6 +399,26 @@ Skin.prototype.updateFavStatusInTwitFlyout = function(favorite) {
     break;
   case Twigadge.FAVORITE.CHANGING:
     fav.innerHTML = '<img src="images/fav_sending.gif" />';
+    break;
+  }
+};
+
+/**
+ * update retweet status in twit flyout
+ * @param[in] (Twigadge.RETWEET)rt - retweet status
+ */
+Skin.prototype.updateRetweetStatusInTwitFlyout = function(rt) {
+  var doc = System.Gadget.Flyout.document;
+  var retweet = doc.getElementById('retweet');
+  switch(rt) {
+  case Twigadge.RETWEET.TRUE:
+    retweet.innerHTML = '<div style="width:16px; cursor:default;"> </div>';
+    break;
+  case Twigadge.RETWEET.FALSE:
+    retweet.innerHTML = '<img onclick="retweet(\'' + twit.id + '\')" src="images/retweet.png" />';
+    break;
+  case Twigadge.RETWEET.CHANGING:
+    retweet.innerHTML = '<img src="images/retweet_sending.gif" />';
     break;
   }
 };
