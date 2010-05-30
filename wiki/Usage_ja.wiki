@@ -21,12 +21,12 @@ twigadge-XXXX.gadget(XXXXはバージョン番号)をダブルクリックする
 [http://twigadge.googlecode.com/files/twigadge-reload-icon.png]をクリックするとタイムラインのリロードを行います。TwitterAPIには制限があり、1時間にタイムラインを取得できる回数が決まっています。押しすぎに注意してください。
 
 == 発言の拡大表示 ==
-[http://twigadge.googlecode.com/files/twigadge-ss-1.0.png]
+[http://twigadge.googlecode.com/files/twigadge-ss-2.0.png]
 
 ユーザアイコンをクリックすると発言が拡大表示されます。
 ボタンをクリックすることで以下の動きをします。
   * ☆ 発言をお気に入りに追加(もしくは解除)
-  * Retweetマーク 発言をリツイートする(公式RT)
+  * [http://twigadge.googlecode.com/files/twigadge-retweet-icon.png] 発言をリツイートする(公式RT)
   * RT RT記法で発言を引用する 
   * TL Twitter(twitter.com/ユーザ名)を開く
   * Web ユーザのWebページを開く
