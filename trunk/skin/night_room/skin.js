@@ -236,7 +236,7 @@ var replyStyle = function(twit) {
   var settings = Twigadge.userSettings;
   
   if(isReply(settings.screen_name, twit, false)) {
-    return 'bgcolor="#7acec8" ';
+    return 'bgcolor="#2e3137" ';
   } else {
     return '';
   }
