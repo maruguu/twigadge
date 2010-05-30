@@ -2,7 +2,7 @@
  * background - 3e4147
  * font-color - fffedf
  * link-color - dfba69
- * buzz-color - 5a2e2e
+ * buzz-color - fffedf
  * line       - 2a2c31
  */
 
@@ -103,7 +103,7 @@ a {
 
 
 a.buzzword {
-  color: #5a2e2e;
+  color: #fffedf;
   text-decoration: none;
   font-weight: bold;
 }
