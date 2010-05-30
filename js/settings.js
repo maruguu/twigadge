@@ -16,6 +16,7 @@ var Settings = function(){
       settings.height = $('#height').val();
       settings.autoScroll = $('#scroller').attr('checked');
       settings.fixedBlock = $('#fixed').attr('checked');
+      settings.skinName = $('#skin_list').val();
     } else if(page == 2) {
       settings.buzztter.enable = $('#buzz_enable').attr('checked');
       settings.buzztter.interval = $('#buzz_interval').val();
@@ -88,6 +89,13 @@ var Settings = function(){
         $('#height').val(settings.height);
         $('#scroller').attr('checked', settings.autoScroll);
         $('#fixed').attr('checked', settings.fixedBlock);
+        var s = settings.skinName;
+        $('option').each(function() {
+          if(s == $(this).val()) {
+            $('#skin_list').val(s);
+          }
+        });
+        
       } else if(page == 2) {
         $('#buzz_enable').attr('checked', settings.buzztter.enable);
         $('#buzz_interval').val(settings.buzztter.interval);
