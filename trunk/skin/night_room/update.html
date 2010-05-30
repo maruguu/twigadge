@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Flyout</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="update.css" rel="stylesheet" type="text/css" />
+  <script src="../../alert.vbs" type="text/vbscript"></script>
+  <script src="../../js/jquery.js" type="text/javascript"></script>
+  <script src="../../js/local.js" type="text/javascript"></script>
+  <script src="update.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="header">
+    <table cellspacing="0" cellpadding="0"><tr>
+      <td width="160px"><div class="status" id="status"></div></td>
+      <td width="80px"><b><a class="string-length" id="string-length">0 / 140</a></b></td>
+    </tr></table>
+  </div>
+  <div id="content">
+  <table cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+        <textarea id="update-text" rows="8" cols="38"></textarea>
+      </td>
+    </tr>
+  </table>
+  <table cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+        <input type="button" id="update-button" value="update" />
+      </td>
+      <td width="220px"><div id="target-name"></div><div style="visibility:hidden" id="in-reply-to"></div></td>
+    </tr>
+  </table>
+  </div>
+  <div id="footer"></div>
+</body>
+</html>
