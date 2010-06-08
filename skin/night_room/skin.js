@@ -431,9 +431,9 @@ Skin.prototype.updateRetweetStatusInTwitFlyout = function(rt) {
 Skin.prototype.showOAuthAuthorization = function(oauth_token, errorMsg) {
   // display the middle of the gadget (height / 2 - 20)
   var settings = Twigadge.userSettings;
-  alignment = settings.height / 2 - 40;
+  alignment = settings.height / 2 - 70;
   $("#main").empty();
-  var message = '<table cellspacing="0" cellpadding="0"><tr><td height="' + alignment + '"></td></tr></table><p class="block"><table cellspacing="0" cellpadding="0"><tr><td><img src="' + getLogIcon(Twigadge.LOG_LV.INFO) + '" /><a href="http://twitter.com/oauth/authorize?oauth_token=' + oauth_token + '">' + Local.getOAuthVerifier + '</a><br /></ td></tr><tr><td>' + Local.setPIN + '</td></tr><tr><td><input id="pin-input" size="10" type="text" maxlength="7" /></tr></td><tr><td style="text-align:center"><div onclick="sendPIN()" style="cursor: pointer">OK</div></td></tr></table></p>';
+  var message = '<table cellspacing="0" cellpadding="0"><tr><td height="' + alignment + '"></td></tr></table><p class="block"><table cellspacing="0" cellpadding="0"><tr><td><img src="' + getLogIcon(Twigadge.LOG_LV.INFO) + '" /><a href="http://twitter.com/oauth/authorize?oauth_token=' + oauth_token + '">' + Local.getOAuthVerifier + '</a><br /></ td></tr><tr><td>URL:</td></tr><tr><td><textarea  rows="3" cols="9">http://twitter.com/oauth/authorize?oauth_token=' + oauth_token + '</textarea></td></tr><tr><td>' + Local.setPIN + '</td></tr><tr><td><input id="pin-input" size="10" type="text" maxlength="7" /></tr></td><tr><td style="text-align:center"><div onclick="sendPIN()" style="cursor: pointer">OK</div></td></tr></table></p>';
   if(typeof errorMsg != "undefined") {
     message += '<table cellspacing="0" cellpadding="0"><tr><td><img src="' + getLogIcon(Twigadge.LOG_LV.ERROR) + '" /></td><td>' + errorMsg + '<br /></ td></tr></table>';
   }
